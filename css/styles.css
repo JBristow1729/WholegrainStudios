@@ -1,0 +1,545 @@
+﻿    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    /* ── LIGHT THEME (default) ── */
+    :root, [data-theme="light"] {
+      --cream:       #fdf0dc;
+      --cream-dark:  #f5e2c0;
+      --tan:         #c8a97a;
+      --tan-dark:    #a07c50;
+      --crust:       #7a4f28;
+      --brown:       #3d2b1a;
+      --sage:        #7a9e6e;
+      --sage-light:  #a8c89a;
+      --sage-dark:   #4e6e42;
+      --card-bg:     #fffbf3;
+      --border:      #ddc898;
+      --text:        #3d2b1a;
+      --text-mid:    #7a5c3a;
+      --text-dim:    #a08060;
+      --white:       #fffef9;
+      --nav-bg:      rgba(253,240,220,0.94);
+      --about-bg:    #f5e2c0;
+      --shadow:      rgba(122,79,40,0.12);
+    }
+
+    /* ── DARK THEME ── */
+    [data-theme="dark"] {
+      --cream:       #1a1612;
+      --cream-dark:  #221d17;
+      --tan:         #7a6040;
+      --tan-dark:    #9a7850;
+      --crust:       #c8956a;
+      --brown:       #e8d0b0;
+      --sage:        #5a8050;
+      --sage-light:  #4a6840;
+      --sage-dark:   #8ab87a;
+      --card-bg:     #211c16;
+      --border:      #3a3028;
+      --text:        #e8d8c0;
+      --text-mid:    #c0a880;
+      --text-dim:    #806850;
+      --white:       #2a2318;
+      --nav-bg:      rgba(26,22,18,0.96);
+      --about-bg:    #1e1914;
+      --shadow:      rgba(0,0,0,0.4);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--cream);
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 40px;
+      background: var(--nav-bg);
+      backdrop-filter: blur(8px);
+      border-bottom: 2px solid var(--border);
+      transition: background 0.3s, border-color 0.3s;
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+    }
+
+    .nav-logo-img { height: 40px; width: auto; }
+    .nav-logo-toast { height: 38px; width: auto; flex-shrink: 0; }
+    .nav-logo-wordmark {
+      height: 32px;
+      width: auto;
+      display: block;
+    }
+    [data-theme="dark"] .nav-logo-wordmark { filter: invert(1); }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 28px;
+      list-style: none;
+      align-items: center;
+    }
+
+    .nav-links a {
+      font-family: 'Nunito', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--text-mid);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--crust); }
+
+    /* Dark mode toggle */
+    .dark-toggle {
+      background: var(--card-bg);
+      border: 2px solid var(--border);
+      border-radius: 100px;
+      width: 52px;
+      height: 28px;
+      cursor: pointer;
+      position: relative;
+      transition: background 0.3s, border-color 0.3s;
+      flex-shrink: 0;
+    }
+
+    .dark-toggle::after {
+      content: '';
+      position: absolute;
+      top: 3px;
+      left: 3px;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: var(--tan-dark);
+      transition: transform 0.3s, background 0.3s;
+    }
+
+    [data-theme="dark"] .dark-toggle::after {
+      transform: translateX(24px);
+      background: var(--sage-dark);
+    }
+
+    .dark-toggle-icon {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 0.75rem;
+      pointer-events: none;
+      transition: opacity 0.2s;
+    }
+
+    .icon-sun  { left:  6px; opacity: 1; }
+    .icon-moon { right: 6px; opacity: 0.4; }
+
+    [data-theme="dark"] .icon-sun  { opacity: 0.4; }
+    [data-theme="dark"] .icon-moon { opacity: 1; }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 120px 24px 80px;
+      position: relative;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 80px 40px 40px;
+      border: 2.5px dashed var(--border);
+      border-radius: 24px;
+      pointer-events: none;
+      transition: border-color 0.3s;
+    }
+
+    .hero-brand {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: clamp(18px, 4vw, 40px);
+      margin-bottom: 28px;
+    }
+    .hero-toast {
+      width: clamp(180px, 33vw, 300px);
+      height: auto;
+      filter: drop-shadow(0 8px 28px var(--shadow));
+      flex-shrink: 0;
+    }
+    .hero-title-img {
+      width: clamp(240px, 42vw, 480px);
+      height: auto;
+    }
+    [data-theme="dark"] .hero-title-img { filter: invert(1); }
+
+    .hero-tagline {
+      font-family: 'Nunito', sans-serif;
+      font-size: clamp(1rem, 2.5vw, 1.25rem);
+      font-weight: 600;
+      color: var(--text-mid);
+      margin-bottom: 6px;
+    }
+    .hero-tagline strong { color: var(--crust); font-weight: 900; }
+
+    .hero-badges {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin: 20px 0 36px;
+    }
+
+    .badge {
+      font-family: 'Nunito', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      padding: 5px 13px;
+      border-radius: 100px;
+      border: 2px solid;
+      transition: background 0.3s, color 0.3s, border-color 0.3s;
+    }
+    .badge-green { background: #eaf3e6; color: var(--sage-dark); border-color: var(--sage-light); }
+    .badge-tan   { background: #f5e8d0; color: var(--crust);     border-color: var(--tan); }
+    [data-theme="dark"] .badge-green { background: #1a2a18; }
+    [data-theme="dark"] .badge-tan   { background: #2a1e10; }
+
+    .hero-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 36px;
+      background: var(--sage);
+      color: white;
+      font-family: 'Nunito', sans-serif;
+      font-weight: 800;
+      font-size: 1rem;
+      border-radius: 100px;
+      text-decoration: none;
+      box-shadow: 0 4px 0 var(--sage-dark);
+      transition: transform 0.15s, box-shadow 0.15s, background 0.3s;
+    }
+    .hero-cta:hover  { transform: translateY(-2px); box-shadow: 0 6px 0 var(--sage-dark); }
+    .hero-cta:active { transform: translateY(2px);  box-shadow: 0 2px 0 var(--sage-dark); }
+
+    /* ── DIVIDER ── */
+    .divider {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+    .divider-line { flex: 1; height: 2px; background: var(--border); border-radius: 1px; transition: background 0.3s; }
+    .divider-icon { font-size: 1.4rem; }
+
+    /* ── GAMES SECTION ── */
+    .games-section {
+      padding: 64px 24px 100px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .section-header { text-align: center; margin-bottom: 48px; }
+    .section-eyebrow {
+      font-family: 'Nunito', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--sage-dark);
+      margin-bottom: 8px;
+    }
+    .section-title {
+      font-family: 'Nunito', sans-serif;
+      font-size: clamp(1.8rem, 4vw, 2.6rem);
+      font-weight: 900;
+      color: var(--brown);
+      line-height: 1.15;
+    }
+    .section-title em { font-style: normal; color: var(--tan-dark); }
+    .section-sub { font-size: 0.9rem; color: var(--text-dim); margin-top: 10px; }
+
+    /* ── GAME CARDS ── */
+    .game-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 24px;
+    }
+
+    .game-card {
+      background: var(--card-bg);
+      border: 2.5px solid var(--border);
+      border-radius: 20px;
+      overflow: hidden;
+      text-decoration: none;
+      color: inherit;
+      display: block;
+      transition: transform 0.2s, box-shadow 0.2s, background 0.3s, border-color 0.3s;
+      box-shadow: 0 3px 0 var(--border);
+      position: relative;
+    }
+    .game-card:not(.wip):hover {
+      transform: translateY(-4px) rotate(-0.5deg);
+      box-shadow: 0 8px 0 var(--tan);
+    }
+    .game-card.wip { opacity: 0.82; cursor: default; }
+
+    /* Card art — shows PWA icon if loaded, else emoji fallback */
+    .card-art {
+      width: 100%;
+      height: 160px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .card-art-kaboo { background: linear-gradient(135deg, #1a4d35, #2e7a52, #1a4d35); }
+    .card-art-dice  { background: linear-gradient(135deg, #4a2020, #7a3c3c, #4a2020); }
+    .card-art-godot { background: linear-gradient(135deg, #2a3a5a, #3a5080, #2a3a5a); }
+
+    .card-cover {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.3s;
+    }
+    .game-card:not(.wip):hover .card-cover { transform: scale(1.04); }
+
+    /* Torn paper edge */
+    .card-art::after {
+      content: '';
+      position: absolute;
+      bottom: -1px; left: 0; right: 0;
+      height: 18px;
+      background: var(--card-bg);
+      clip-path: polygon(0% 100%, 2% 20%, 5% 90%, 8% 10%, 12% 85%, 16% 15%, 20% 80%, 24% 20%, 28% 90%, 32% 5%, 36% 75%, 40% 25%, 44% 85%, 48% 10%, 52% 80%, 56% 20%, 60% 90%, 64% 15%, 68% 85%, 72% 10%, 76% 80%, 80% 20%, 84% 90%, 88% 5%, 92% 75%, 96% 25%, 100% 80%, 100% 100%);
+      transition: background 0.3s;
+    }
+
+    .wip-badge {
+      position: absolute;
+      top: 12px; right: 12px;
+      background: #fffbf0;
+      border: 2px solid #e8c842;
+      color: #8a7010;
+      font-family: 'Nunito', sans-serif;
+      font-size: 0.65rem;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 3px 10px;
+      border-radius: 100px;
+      z-index: 2;
+    }
+    [data-theme="dark"] .wip-badge { background: #2a2208; border-color: #8a7010; color: #c8a820; }
+
+    .card-body { padding: 18px 20px 22px; }
+    .card-tags { display: flex; gap: 6px; margin-bottom: 10px; flex-wrap: wrap; }
+    .ctag {
+      font-family: 'Nunito', sans-serif;
+      font-size: 0.63rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 2px 8px;
+      border-radius: 100px;
+      border: 1.5px solid;
+      transition: background 0.3s;
+    }
+    .ctag-green  { background: #eaf3e6; color: var(--sage-dark); border-color: var(--sage-light); }
+    .ctag-tan    { background: #f5e8d0; color: var(--crust);     border-color: var(--tan); }
+    .ctag-red    { background: #f5e6e4; color: #8a3020;          border-color: #e0a090; }
+    .ctag-blue   { background: #e6edf5; color: #2a4a7a;          border-color: #90aad0; }
+    .ctag-yellow { background: #fdf5d8; color: #8a7010;          border-color: #e0c842; }
+    [data-theme="dark"] .ctag-green  { background: #182818; }
+    [data-theme="dark"] .ctag-tan    { background: #281e10; }
+    [data-theme="dark"] .ctag-red    { background: #281410; }
+    [data-theme="dark"] .ctag-blue   { background: #101828; }
+    [data-theme="dark"] .ctag-yellow { background: #282008; }
+
+    .card-title {
+      font-family: 'Nunito', sans-serif;
+      font-size: 1.3rem;
+      font-weight: 900;
+      color: var(--brown);
+      margin-bottom: 6px;
+    }
+    .card-desc { font-size: 0.84rem; color: var(--text-mid); line-height: 1.65; }
+    .card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 16px;
+      padding-top: 14px;
+      border-top: 1.5px dashed var(--border);
+      transition: border-color 0.3s;
+    }
+    .card-play {
+      font-family: 'Nunito', sans-serif;
+      font-size: 0.82rem;
+      font-weight: 800;
+      color: var(--sage-dark);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: gap 0.2s;
+    }
+    .game-card:hover .card-play { gap: 10px; }
+    .card-platform { font-size: 0.72rem; color: var(--text-dim); }
+
+    .card-progress { margin-top: 14px; }
+    .progress-label {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.7rem;
+      color: var(--text-dim);
+      margin-bottom: 5px;
+      font-family: 'Nunito', sans-serif;
+      font-weight: 700;
+    }
+    .progress-bar { height: 6px; background: var(--cream-dark); border-radius: 100px; overflow: hidden; transition: background 0.3s; }
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(to right, var(--tan), var(--crust));
+      border-radius: 100px;
+      width: 0;
+      transition: width 1.2s cubic-bezier(0.4,0,0.2,1);
+    }
+
+    /* ── ABOUT ── */
+    .about-section {
+      background: var(--about-bg);
+      border-top: 2.5px solid var(--border);
+      border-bottom: 2.5px solid var(--border);
+      padding: 72px 24px;
+      transition: background 0.3s, border-color 0.3s;
+    }
+    .about-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: start;
+    }
+    .about-text h2 {
+      font-family: 'Nunito', sans-serif;
+      font-size: 2rem;
+      font-weight: 900;
+      color: var(--brown);
+      margin-bottom: 16px;
+      line-height: 1.2;
+    }
+    .about-text p { font-size: 0.9rem; line-height: 1.85; color: var(--text-mid); margin-bottom: 14px; }
+
+    /* Nutrition Facts panel */
+    .nutrition-panel {
+      background: var(--white);
+      border: 3px solid var(--brown);
+      border-radius: 8px;
+      padding: 20px 22px;
+      transition: background 0.3s, border-color 0.3s;
+    }
+    .nutrition-title {
+      font-family: 'Nunito', sans-serif;
+      font-size: 1.6rem;
+      font-weight: 900;
+      color: var(--brown);
+      border-bottom: 8px solid var(--brown);
+      padding-bottom: 6px;
+      margin-bottom: 4px;
+      transition: color 0.3s, border-color 0.3s;
+    }
+    .nutrition-serving {
+      font-size: 0.72rem;
+      color: var(--text-mid);
+      border-bottom: 3px solid var(--brown);
+      padding-bottom: 6px;
+      margin-bottom: 8px;
+    }
+    .nutrition-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 5px 0;
+      font-size: 0.82rem;
+      border-bottom: 1px solid var(--border);
+      color: var(--text);
+      transition: border-color 0.3s;
+    }
+    .nutrition-row:last-child { border-bottom: none; }
+    .nutrition-row .label { font-weight: 500; }
+    .nutrition-row .value { font-weight: 700; color: var(--crust); }
+    .nutrition-note {
+      font-size: 0.65rem;
+      color: var(--text-dim);
+      margin-top: 10px;
+      border-top: 3px solid var(--brown);
+      padding-top: 8px;
+      line-height: 1.5;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      padding: 36px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+      border-top: 2px solid var(--border);
+      transition: border-color 0.3s;
+    }
+    .footer-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-family: 'Nunito', sans-serif;
+      font-weight: 900;
+      font-size: 1rem;
+      color: var(--brown);
+    }
+    .footer-logo img { height: 32px; width: auto; }
+    .footer-note { font-size: 0.78rem; color: var(--text-dim); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      nav { padding: 10px 16px; }
+      .nav-links { display: none; }
+      .hero::before { inset: 70px 16px 20px; }
+      .about-inner { grid-template-columns: 1fr; gap: 40px; }
+      footer { padding: 28px 20px; flex-direction: column; }
+    }
+    @media (max-width: 500px) { .game-grid { grid-template-columns: 1fr; } }
+    @media (prefers-reduced-motion: reduce) {
+      .hero-brand { flex-direction: column; gap: 12px; }
+      .hero-title-img { width: clamp(210px, 75vw, 390px); }
+      .game-card, body, nav { transition: none; }
+    }

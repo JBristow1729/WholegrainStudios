@@ -1,0 +1,24 @@
+{
+  "name": "Wholegrain Studios",
+  "short_name": "Wholegrain",
+  "description": "Fresh-baked indie games. Good ingredients, no fillers.",
+  "start_url": ".",
+  "scope": ".",
+  "display": "standalone",
+  "background_color": "#fdf0dc",
+  "theme_color": "#fdf0dc",
+  "icons": [
+    {
+      "src": "images/toast-logo.png",
+      "sizes": "390x442",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "images/toast-mascot.png",
+      "sizes": "390x442",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}
