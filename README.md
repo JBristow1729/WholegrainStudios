@@ -1,4 +1,4 @@
-﻿# Wholegrain Studios
+# Wholegrain Studios
 
 PWA-ready static site split from the original single-file prototype.
 
@@ -6,7 +6,7 @@ PWA-ready static site split from the original single-file prototype.
 
 - `index.html` - document markup and content
 - `css/styles.css` - extracted site styles
-- `js/main.js` - theme toggle, game icon loading, progress animation, service worker registration
+- `js/main.js` - theme toggle, card navigation, service worker registration
 - `images/` - extracted PNG assets from the original HTML
 - `manifest.json` - PWA metadata
 - `sw.js` - basic app-shell service worker
@@ -15,18 +15,6 @@ PWA-ready static site split from the original single-file prototype.
 
 The original file included baked-in Wholegrain Games wordmark images. Those have been extracted as image files. To fully rebrand the visible artwork to Wholegrain Studios, provide replacement wordmark/logo image assets and swap them into `images/wordmark.png` and `images/hero-wordmark.png`.
 
-## Admin editing
-
-The public site has no login button. Visit `/admin.html` directly and sign in with a Netlify Identity email/password account. The homepage will show admin controls only when the logged-in email is listed in `ADMIN_EMAILS`.
-
-Required Netlify environment variables:
-
-- `ADMIN_EMAILS`: comma-separated admin email addresses, for example `jake@example.com`. These accounts must exist in Netlify Identity. Player accounts do not need to be listed here.
-- `GITHUB_CONTENT_TOKEN`: a GitHub token with contents read/write access to this repository.
-- `GITHUB_REPO`: optional, defaults to `JBristow1729/WholegrainStudios`.
-- `GITHUB_BRANCH`: optional, defaults to `main`.
-
-Game content lives in `data/games.json`. Admin saves commit updates to that file through the Netlify Function, which triggers a normal Netlify redeploy.
 
 ## Wholegrain account linking
 

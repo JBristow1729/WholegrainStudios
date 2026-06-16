@@ -1,15 +1,12 @@
-const CACHE_NAME = 'wholegrain-studios-v5';
+const CACHE_NAME = 'wholegrain-studios-v6';
 const APP_SHELL = [
   './',
   './index.html',
   './css/styles.css',
   './js/main.js',
   './manifest.json',
-  './data/games.json',
   './data/account-apps.json',
-  './js/admin.js',
   './js/account-link.js',
-  './admin.html',
   './images/toast-logo.png',
   './images/wordmark.png',
   './images/toast-mascot.png',
