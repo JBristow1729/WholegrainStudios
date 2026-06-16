@@ -1,0 +1,9 @@
+{
+  "apps": {
+    "pips": {
+      "name": "Pips",
+      "endpointEnv": "PIPS_LINK_ENDPOINT",
+      "returnOriginsEnv": "PIPS_RETURN_ORIGINS"
+    }
+  }
+}

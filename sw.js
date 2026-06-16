@@ -1,4 +1,4 @@
-const CACHE_NAME = 'wholegrain-studios-v4';
+const CACHE_NAME = 'wholegrain-studios-v5';
 const APP_SHELL = [
   './',
   './index.html',
@@ -6,7 +6,9 @@ const APP_SHELL = [
   './js/main.js',
   './manifest.json',
   './data/games.json',
+  './data/account-apps.json',
   './js/admin.js',
+  './js/account-link.js',
   './admin.html',
   './images/toast-logo.png',
   './images/wordmark.png',

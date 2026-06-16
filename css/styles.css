@@ -687,3 +687,37 @@
       flex-wrap: wrap;
       margin-top: 8px;
     }
+    /* ── ACCOUNT LINK ── */
+    .account-link-page { padding: 48px 20px; }
+    .account-link-shell { max-width: 700px; margin: 0 auto; }
+    .account-link-panel h1 {
+      font-family: 'Nunito', sans-serif;
+      font-size: 2rem;
+      color: var(--brown);
+      line-height: 1.15;
+      margin-bottom: 12px;
+    }
+    .account-link-copy {
+      color: var(--text-mid);
+      line-height: 1.7;
+      margin-bottom: 18px;
+    }
+    .account-link-summary {
+      display: grid;
+      grid-template-columns: max-content 1fr;
+      gap: 8px 14px;
+      padding: 14px 16px;
+      margin: 18px 0 22px;
+      background: var(--white);
+      border: 2px solid var(--border);
+      border-radius: 8px;
+      color: var(--text-mid);
+      font-size: 0.86rem;
+    }
+    .account-link-summary strong { color: var(--brown); }
+    .account-link-actions {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      flex-wrap: wrap;
+    }

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex">
+  <title>Link Account · Wholegrain Studios</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body class="account-link-page">
+  <main class="account-link-shell">
+    <a class="admin-back" href="/">Back to Wholegrain Studios</a>
+    <section class="admin-panel account-link-panel">
+      <p class="section-eyebrow">Wholegrain Accounts</p>
+      <h1 id="linkTitle">Link your account</h1>
+      <p class="account-link-copy" id="linkCopy">Sign in to connect this game profile to your Wholegrain account.</p>
+
+      <div class="account-link-summary" id="linkSummary" hidden></div>
+
+      <div class="admin-login" id="loginPanel">
+        <button class="hero-cta" type="button" id="loginButton">Sign in or create account</button>
+      </div>
+
+      <div class="account-link-actions" id="linkActions" hidden>
+        <button class="hero-cta" type="button" id="linkButton">Link account</button>
+        <button class="admin-secondary" type="button" id="logoutButton">Use another account</button>
+      </div>
+
+      <p class="admin-status" id="linkStatus" role="status"></p>
+    </section>
+  </main>
+
+  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js" defer></script>
+  <script src="/js/account-link.js" defer></script>
+</body>
+</html>
