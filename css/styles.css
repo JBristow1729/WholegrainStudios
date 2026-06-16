@@ -1,4 +1,4 @@
-﻿    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     /* ── LIGHT THEME (default) ── */
     :root, [data-theme="light"] {
@@ -298,18 +298,21 @@
       overflow: hidden;
       text-decoration: none;
       color: inherit;
-      display: block;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
       transition: transform 0.2s, box-shadow 0.2s, background 0.3s, border-color 0.3s;
       box-shadow: 0 3px 0 var(--border);
       position: relative;
     }
-    .game-card:not(.wip):hover {
+    .game-card.is-clickable { cursor: pointer; }
+    .game-card:not(.wip):not(.add-game-card):hover {
       transform: translateY(-4px) rotate(-0.5deg);
       box-shadow: 0 8px 0 var(--tan);
     }
     .game-card.wip { opacity: 0.82; cursor: default; }
 
-    /* Card art — shows PWA icon if loaded, else emoji fallback */
+    /* Card art */
     .card-art {
       width: 100%;
       height: 160px;
@@ -360,7 +363,12 @@
     }
     [data-theme="dark"] .wip-badge { background: #2a2208; border-color: #8a7010; color: #c8a820; }
 
-    .card-body { padding: 18px 20px 22px; }
+    .card-body {
+      padding: 18px 20px 22px;
+      display: flex;
+      flex: 1;
+      flex-direction: column;
+    }
     .card-tags { display: flex; gap: 6px; margin-bottom: 10px; flex-wrap: wrap; }
     .ctag {
       font-family: 'Nunito', sans-serif;
@@ -396,7 +404,7 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin-top: 16px;
+      margin-top: auto;
       padding-top: 14px;
       border-top: 1.5px dashed var(--border);
       transition: border-color 0.3s;
@@ -414,7 +422,7 @@
     .game-card:hover .card-play { gap: 10px; }
     .card-platform { font-size: 0.72rem; color: var(--text-dim); }
 
-    .card-progress { margin-top: 14px; }
+    .card-progress { margin-top: auto; padding-top: 14px; }
     .progress-label {
       display: flex;
       justify-content: space-between;
@@ -542,4 +550,140 @@
       .hero-brand { flex-direction: column; gap: 12px; }
       .hero-title-img { width: clamp(210px, 75vw, 390px); }
       .game-card, body, nav { transition: none; }
+    }
+
+    /* ── ADMIN CONTROLS ── */
+    .card-admin-controls {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      z-index: 4;
+    }
+    .card-menu-button {
+      width: 34px;
+      height: 28px;
+      border: 2px solid var(--border);
+      border-radius: 8px;
+      background: var(--card-bg);
+      color: var(--brown);
+      font-family: 'Nunito', sans-serif;
+      font-weight: 900;
+      cursor: pointer;
+      box-shadow: 0 2px 0 var(--border);
+    }
+    .card-menu {
+      position: absolute;
+      top: 34px;
+      left: 0;
+      min-width: 120px;
+      display: none;
+      flex-direction: column;
+      padding: 6px;
+      background: var(--card-bg);
+      border: 2px solid var(--border);
+      border-radius: 8px;
+      box-shadow: 0 8px 24px var(--shadow);
+    }
+    .card-menu.is-open { display: flex; }
+    .card-menu a,
+    .card-menu button {
+      appearance: none;
+      border: 0;
+      background: transparent;
+      color: var(--text);
+      cursor: pointer;
+      font: inherit;
+      font-family: 'Nunito', sans-serif;
+      font-size: 0.84rem;
+      font-weight: 800;
+      padding: 8px 10px;
+      text-align: left;
+      text-decoration: none;
+      border-radius: 6px;
+    }
+    .card-menu a:hover,
+    .card-menu button:hover { background: var(--cream-dark); }
+    .add-game-card {
+      min-height: 100%;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 40px 20px;
+      border-style: dashed;
+      color: var(--sage-dark);
+      text-align: center;
+    }
+    .add-game-plus {
+      display: grid;
+      place-items: center;
+      width: 64px;
+      height: 64px;
+      border: 3px solid var(--sage-light);
+      border-radius: 50%;
+      font-family: 'Nunito', sans-serif;
+      font-size: 2.6rem;
+      font-weight: 900;
+      line-height: 1;
+    }
+    .add-game-text {
+      font-family: 'Nunito', sans-serif;
+      font-size: 1rem;
+      font-weight: 900;
+    }
+
+    .admin-page { padding: 48px 20px; }
+    .admin-shell { max-width: 760px; margin: 0 auto; }
+    .admin-back,
+    .admin-secondary {
+      color: var(--sage-dark);
+      font-family: 'Nunito', sans-serif;
+      font-weight: 800;
+      text-decoration: none;
+    }
+    .admin-panel {
+      margin-top: 22px;
+      background: var(--card-bg);
+      border: 2.5px solid var(--border);
+      border-radius: 12px;
+      padding: 28px;
+      box-shadow: 0 3px 0 var(--border);
+    }
+    .admin-header {
+      display: flex;
+      align-items: start;
+      justify-content: space-between;
+      gap: 20px;
+      margin-bottom: 24px;
+    }
+    .admin-header h1 {
+      font-family: 'Nunito', sans-serif;
+      font-size: 2rem;
+      color: var(--brown);
+      line-height: 1.15;
+    }
+    .admin-login p,
+    .admin-status { color: var(--text-mid); margin-bottom: 18px; }
+    .game-form { display: grid; gap: 16px; }
+    .game-form label { display: grid; gap: 6px; }
+    .game-form label span {
+      font-family: 'Nunito', sans-serif;
+      font-weight: 800;
+      color: var(--brown);
+    }
+    .game-form input,
+    .game-form textarea {
+      width: 100%;
+      border: 2px solid var(--border);
+      border-radius: 8px;
+      background: var(--white);
+      color: var(--text);
+      font: inherit;
+      padding: 10px 12px;
+    }
+    .form-actions {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      flex-wrap: wrap;
+      margin-top: 8px;
     }
