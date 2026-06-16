@@ -9,8 +9,7 @@
   function initThemeToggle() {
     if (!themeButton) return;
     const saved = localStorage.getItem('wg-theme');
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    if (saved === 'dark' || (!saved && prefersDark)) html.setAttribute('data-theme', 'dark');
+    html.setAttribute('data-theme', saved === 'dark' ? 'dark' : 'light');
 
     themeButton.addEventListener('click', () => {
       const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
