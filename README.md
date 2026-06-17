@@ -39,13 +39,71 @@ Set these environment variables on the Pips Netlify site:
 - `VITE_WHOLEGRAIN_ACCOUNTS_URL`: the production Wholegrain account-link page URL.
 - `WHOLEGRAIN_LINK_SECRET`: the same long random shared secret used on Wholegrain Studios.
 
-### Adding another game later
+### Linked app backend contract
 
-Do not add future games until their backend link endpoint exists. When a new game is ready:
+Each game or app owns its own profile data. Wholegrain Studios only authenticates the Wholegrain account, validates the return URL, and calls the app backend server-to-server.
 
-1. Add its entry to `ACTIVE_GAME_LINKS` in `netlify/functions/link-game-account.js`.
+The app backend endpoint should accept:
+
+```json
+{
+  "identityId": "netlify-identity-user-id",
+  "gameAccountId": "current-local-profile-id"
+}
+```
+
+The app backend should treat the Wholegrain-linked profile as authoritative unless it deliberately asks Wholegrain to show a choice:
+
+- If the Wholegrain account is not linked yet, link the provided local profile and return a short-lived `restoreToken`.
+- If the Wholegrain account is already linked to the same app profile, return a short-lived `restoreToken`.
+- If the Wholegrain account is linked to a different app profile, either resolve automatically or return a `409` choice response.
+
+A choice response should look like:
+
+```json
+{
+  "code": "LINK_CHOICE_REQUIRED",
+  "requiresChoice": true,
+  "existingUsername": "Jake",
+  "localUsername": "Fredo",
+  "conflictToken": "short-lived-conflict-token"
+}
+```
+
+Wholegrain then asks the player whether to use the existing linked profile or overwrite it with the local profile, and calls the app backend again with:
+
+```json
+{
+  "identityId": "netlify-identity-user-id",
+  "gameAccountId": "current-local-profile-id",
+  "linkChoice": "useLinked",
+  "conflictToken": "short-lived-conflict-token"
+}
+```
+
+or:
+
+```json
+{
+  "identityId": "netlify-identity-user-id",
+  "gameAccountId": "current-local-profile-id",
+  "linkChoice": "useLocal",
+  "conflictToken": "short-lived-conflict-token"
+}
+```
+
+When `linkChoice` is `useLinked`, the app backend should keep the existing linked profile, discard/delete the unlinked local profile, and return a restore token for the existing profile. When `linkChoice` is `useLocal`, the app backend should replace the Wholegrain link with the local profile, discard/delete the previously linked profile or migrate it according to the app's rules, and return a restore token for the newly authoritative local profile.
+
+Wholegrain appends the final `restoreToken` to the validated `returnTo` URL using the app's configured `restoreTokenParam`.
+
+### Adding another game or app later
+
+Do not add future apps until their backend link endpoint exists. When a new app is ready:
+
+1. Add its entry to `ACTIVE_GAME_LINKS` in `netlify/functions/link-game-account.js` with `name`, `endpointEnv`, `returnOriginsEnv`, and `restoreTokenParam`.
 2. Add matching environment variables for its endpoint and allowed return origins.
 3. Optionally add its display name to `js/account-link.js`.
-4. Update the game app so it redirects to `/accounts/link?game=<id>&gameAccountId=<id>&returnTo=<url>`.
+4. Update the app so it redirects to `/accounts/link?game=<id>&gameAccountId=<id>&returnTo=<url>`.
+5. Update the app so it consumes the restore token from its configured return query parameter and replaces local/unlinked data with the authoritative profile selected by the link flow.
 
 The browser never receives `WHOLEGRAIN_LINK_SECRET`; only the Wholegrain Netlify Function uses it.

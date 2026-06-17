@@ -977,6 +977,51 @@
       outline-offset: 4px;
     }
 
+    .al-actions .hero-cta--tan {
+      box-shadow: 0 4px 0 var(--crust);
+    }
+
+    .al-actions .hero-cta--tan:hover {
+      box-shadow: 0 6px 0 var(--crust);
+    }
+
+    .al-actions .hero-cta--tan:active {
+      box-shadow: 0 2px 0 var(--crust);
+    }
+
+    .al-choice {
+      width: 100%;
+    }
+
+    .al-choice-copy {
+      max-width: 430px;
+      margin: 0 auto 18px;
+      color: var(--text-mid);
+      font-family: 'Nunito', sans-serif;
+      font-size: 0.92rem;
+      font-weight: 600;
+      line-height: 1.65;
+    }
+
+    .al-choice-copy strong {
+      color: var(--crust);
+      font-weight: 900;
+    }
+
+    .al-choice-buttons {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
+      width: 100%;
+    }
+
+    .al-choice-buttons .hero-cta {
+      width: 100%;
+      max-width: 360px;
+      justify-content: center;
+      border: 0;
+    }
     /* Status line */
     .al-status {
       min-height: 1.4em;
