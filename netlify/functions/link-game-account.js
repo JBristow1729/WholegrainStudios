@@ -2,7 +2,8 @@ const ACTIVE_GAME_LINKS = {
   pips: {
     name: 'Pips',
     endpointEnv: 'PIPS_LINK_ENDPOINT',
-    returnOriginsEnv: 'PIPS_RETURN_ORIGINS'
+    returnOriginsEnv: 'PIPS_RETURN_ORIGINS',
+    restoreTokenParam: 'pipsRestoreToken'
   }
 };
 
@@ -49,7 +50,9 @@ exports.handler = async (event, context) => {
       },
       body: JSON.stringify({
         identityId,
-        gameAccountId
+        gameAccountId,
+        linkChoice: linkChoice || undefined,
+        conflictToken: conflictToken || undefined
       })
     });
   } catch (error) {
@@ -60,15 +63,22 @@ exports.handler = async (event, context) => {
     return json(502, { message: `Unable to contact ${config.name}. Check the configured link endpoint and that the game backend is deployed.` });
   }
 
-  if (!upstream.ok) {
-    const details = await upstream.json().catch(() => ({}));
-    return json(502, { message: details.message || `${config.name} rejected the account link.` });
+  const upstreamBody = await upstream.json().catch(() => ({}));
+
+  if (upstream.status === 409 && isChoiceRequired(upstreamBody)) {
+    return json(409, buildChoiceRequiredResponse(config, game, upstreamBody));
   }
+
+  if (!upstream.ok) {
+    return json(502, { message: upstreamBody.message || `${config.name} rejected the account link.` });
+  }
+
+  const redirectUrl = buildGameReturnUrl(config, safeReturnTo, upstreamBody);
 
   return json(200, {
     ok: true,
     game,
-    returnTo: safeReturnTo.href
+    returnTo: redirectUrl.href
   });
 };
 
@@ -93,6 +103,42 @@ function validateReturnTo(returnTo, allowedOrigins) {
   return allowedOrigins.includes(parsed.origin) ? parsed : null;
 }
 
+function buildGameReturnUrl(config, safeReturnTo, upstreamBody) {
+  const redirectUrl = new URL(safeReturnTo.href);
+  const restoreToken = cleanString(upstreamBody && upstreamBody.restoreToken);
+  const restoreTokenParam = cleanString(config.restoreTokenParam);
+
+  if (restoreToken && restoreTokenParam) {
+    redirectUrl.searchParams.set(restoreTokenParam, restoreToken);
+  }
+
+  return redirectUrl;
+}
+
+function isChoiceRequired(upstreamBody) {
+  return Boolean(upstreamBody && (upstreamBody.requiresChoice || upstreamBody.code === 'LINK_CHOICE_REQUIRED'));
+}
+
+function buildChoiceRequiredResponse(config, game, upstreamBody) {
+  return {
+    ok: false,
+    requiresChoice: true,
+    game,
+    gameName: config.name,
+    existingUsername: cleanString(upstreamBody.existingUsername || upstreamBody.existingProfile && upstreamBody.existingProfile.username),
+    localUsername: cleanString(upstreamBody.localUsername || upstreamBody.localProfile && upstreamBody.localProfile.username),
+    conflictToken: cleanString(upstreamBody.conflictToken),
+    message: cleanString(upstreamBody.message) || `Choose which ${config.name} profile to keep.`
+  };
+}
+
+function isSafeLinkChoice(value) {
+  return ['useLinked', 'useLocal'].includes(value);
+}
+
+function isSafeConflictToken(value) {
+  return /^[A-Za-z0-9_.:-]{1,512}$/.test(value);
+}
 function isHttpUrl(value) {
   try {
     const parsed = new URL(value);

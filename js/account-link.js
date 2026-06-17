@@ -16,12 +16,12 @@
   const title = document.getElementById('linkTitle');
   const copy = document.getElementById('linkCopy');
   const linkActions = document.getElementById('linkActions');
-  const linkButton = document.getElementById('linkButton');
   const status = document.getElementById('linkStatus');
   const html = document.documentElement;
   const themeButton = document.getElementById('themeToggle');
   let linkInProgress = false;
   let loadingOverlay;
+  let pendingChoice;
 
   window.addEventListener('load', init);
 
@@ -42,7 +42,7 @@
     title.innerHTML = `Link <span class="game-name">${escapeHtml(displayGameName(state.game))}</span> account`;
     copy.textContent = `Connect this game profile to your Wholegrain account.`;
 
-    linkButton.addEventListener('click', handleLinkClick);
+    renderDefaultActions();
     window.netlifyIdentity.on('init', user => {
       if (user) linkAccount();
     });
@@ -55,7 +55,7 @@
     });
     window.netlifyIdentity.on('error', error => {
       status.textContent = error && error.message ? error.message : 'Unable to complete account sign in.';
-      linkButton.disabled = false;
+      setActionsDisabled(false);
       linkInProgress = false;
     });
     window.netlifyIdentity.init();
@@ -105,7 +105,7 @@
     openIdentityDialog();
   }
 
-  async function linkAccount() {
+  async function linkAccount(choice) {
     if (linkInProgress) return;
 
     const user = getUser();
@@ -115,15 +115,15 @@
     }
 
     linkInProgress = true;
-    linkButton.disabled = true;
-    status.textContent = 'Linking your account...';
+    setActionsDisabled(true);
+    status.textContent = choice ? 'Applying your choice...' : 'Linking your account...';
     showLoadingOverlay();
 
     try {
       const token = await getIdentityToken(user);
       if (!token) {
         openIdentityDialog('Please sign in before linking your account.');
-        linkButton.disabled = false;
+        setActionsDisabled(false);
         linkInProgress = false;
         return;
       }
@@ -134,12 +134,16 @@
           'Content-Type': 'application/json',
           Authorization: `Bearer ${token}`
         },
-        body: JSON.stringify(state)
+        body: JSON.stringify({ ...state, ...(choice || {}) })
       });
 
       const result = await response.json().catch(() => ({}));
       if (response.status === 401) {
         openIdentityDialog(result.message || 'Please sign in before linking your account.');
+        return;
+      }
+      if (response.status === 409 && result.requiresChoice) {
+        showProfileChoice(result);
         return;
       }
       if (!response.ok) throw new Error(result.message || 'Unable to link this account.');
@@ -150,11 +154,60 @@
     } catch (error) {
       hideLoadingOverlay();
       status.textContent = error.message || 'Unable to link this account.';
-      linkButton.disabled = false;
+      setActionsDisabled(false);
       linkInProgress = false;
     }
   }
 
+  function renderDefaultActions() {
+    pendingChoice = null;
+    linkActions.hidden = false;
+    linkActions.innerHTML = `
+      <button class="hero-cta" type="button" id="linkButton">
+        Link account
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    `;
+    linkActions.querySelector('#linkButton').addEventListener('click', handleLinkClick);
+  }
+
+  function showProfileChoice(result) {
+    hideLoadingOverlay();
+    linkInProgress = false;
+    pendingChoice = result;
+
+    const gameName = result.gameName || displayGameName(state.game);
+    const existingUsername = result.existingUsername || 'your existing profile';
+    const localUsername = result.localUsername || 'this local profile';
+
+    copy.textContent = `This Wholegrain account is already linked to a ${gameName} profile. Choose which profile should be kept.`;
+    status.textContent = '';
+    linkActions.hidden = false;
+    linkActions.innerHTML = `
+      <div class="al-choice" role="group" aria-label="Choose which ${escapeHtml(gameName)} profile to keep">
+        <p class="al-choice-copy">Would you like to sign in to your existing linked ${escapeHtml(gameName)} account <strong>${escapeHtml(existingUsername)}</strong>, or overwrite it with your new local ${escapeHtml(gameName)} data <strong>${escapeHtml(localUsername)}</strong>?</p>
+        <div class="al-choice-buttons">
+          <button class="hero-cta" type="button" data-link-choice="useLinked">Use ${escapeHtml(existingUsername)}</button>
+          <button class="hero-cta hero-cta--tan" type="button" data-link-choice="useLocal">Overwrite with ${escapeHtml(localUsername)}</button>
+        </div>
+      </div>
+    `;
+
+    linkActions.querySelectorAll('[data-link-choice]').forEach(button => {
+      button.addEventListener('click', () => {
+        linkAccount({
+          linkChoice: button.dataset.linkChoice,
+          conflictToken: pendingChoice && pendingChoice.conflictToken || undefined
+        });
+      });
+    });
+  }
+
+  function setActionsDisabled(disabled) {
+    linkActions.querySelectorAll('button').forEach(button => {
+      button.disabled = disabled;
+    });
+  }
   function showLoadingOverlay() {
     const overlay = getLoadingOverlay();
     overlay.querySelector('.loading-phrase').src = pickLoadingPhrase();
@@ -200,7 +253,8 @@
     storeLinkState(state);
     status.textContent = message;
     hideLoadingOverlay();
-    linkButton.disabled = false;
+    renderDefaultActions();
+    setActionsDisabled(false);
     linkInProgress = false;
     window.netlifyIdentity.open('login');
   }
