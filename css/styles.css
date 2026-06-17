@@ -24,7 +24,7 @@
 
     /* ── DARK THEME ── */
     [data-theme="dark"] {
-      --cream:       #1a1612;
+      --cream:       #4f2b05;
       --cream-dark:  #221d17;
       --tan:         #7a6040;
       --tan-dark:    #9a7850;
@@ -40,7 +40,7 @@
       --text-dim:    #806850;
       --white:       #2a2318;
       --nav-bg:      rgba(26,22,18,0.96);
-      --about-bg:    #1e1914;
+      --about-bg:    #4f2b05;
       --shadow:      rgba(0,0,0,0.4);
     }
 

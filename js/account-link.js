@@ -1,5 +1,6 @@
 (() => {
   const LINK_ENDPOINT = '/.netlify/functions/link-game-account';
+  const THEME_KEY = 'wg-theme';
   const PENDING_LINK_KEY = 'wg-pending-account-link';
   const params = new URLSearchParams(window.location.search);
   const queryState = {
@@ -34,16 +35,19 @@
     }
 
     storeLinkState(state);
-    title.textContent = `Link ${displayGameName(state.game)} account`;
+    title.innerHTML = `Link <span class="game-name">${escapeHtml(displayGameName(state.game))}</span> account`;
     copy.textContent = `Connect this game profile to your Wholegrain account.`;
 
     linkButton.addEventListener('click', handleLinkClick);
+    window.netlifyIdentity.on('init', user => {
+      if (user) linkAccount();
+    });
     window.netlifyIdentity.on('login', () => {
       window.netlifyIdentity.close();
       linkAccount();
     });
     window.netlifyIdentity.on('signup', () => {
-      status.textContent = 'Check your email to verify your Wholegrain account. After verification, return here and the link will continue automatically.';
+      status.textContent = 'Check your email to verify your Wholegrain account. This browser will finish linking after verification.';
     });
     window.netlifyIdentity.on('error', error => {
       status.textContent = error && error.message ? error.message : 'Unable to complete account sign in.';
@@ -53,22 +57,39 @@
     window.netlifyIdentity.init();
 
     if (getUser()) {
-      status.textContent = `Signed in as ${getUser().email || 'your Wholegrain account'}.`;
+      status.textContent = `Signed in as ${getUser().email || 'your Wholegrain account'}. Linking now...`;
+      linkAccount();
     } else if (!hasCompleteState(queryState) && hasCompleteState(state)) {
       status.textContent = 'Sign in to finish linking your account.';
     }
   }
 
   function initThemeToggle() {
-    if (!themeButton) return;
-    const saved = localStorage.getItem('wg-theme');
-    html.setAttribute('data-theme', saved === 'dark' ? 'dark' : 'light');
+    applyStoredTheme();
 
-    themeButton.addEventListener('click', () => {
-      const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-      html.setAttribute('data-theme', next);
-      localStorage.setItem('wg-theme', next);
+    if (themeButton) {
+      themeButton.addEventListener('click', () => {
+        const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+        setTheme(next);
+      });
+    }
+
+    window.addEventListener('storage', event => {
+      if (event.key === THEME_KEY) applyStoredTheme();
     });
+  }
+
+  function applyStoredTheme() {
+    setTheme(localStorage.getItem(THEME_KEY) === 'dark' ? 'dark' : 'light', false);
+  }
+
+  function setTheme(theme, persist = true) {
+    html.setAttribute('data-theme', theme);
+    if (themeButton) {
+      themeButton.setAttribute('aria-pressed', String(theme === 'dark'));
+      themeButton.setAttribute('aria-label', theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode');
+    }
+    if (persist) localStorage.setItem(THEME_KEY, theme);
   }
 
   function handleLinkClick() {
@@ -170,5 +191,9 @@
 
   function displayGameName(game) {
     return ({ pips: 'Pips' }[game] || game);
+  }
+
+  function escapeHtml(value) {
+    return String(value || '').replace(/[&<>"']/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[char]));
   }
 })();
