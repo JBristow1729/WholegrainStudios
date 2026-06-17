@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="The Bakery - every game and app baked by Wholegrain Studios. Good ingredients, no fillers.">
+  <meta name="theme-color" content="#fdf0dc">
+  <title>The Bakery &middot; Wholegrain Studios</title>
+  <link rel="manifest" href="../manifest.json">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Inter:wght@300;400;500&family=Fredoka+One&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/styles.css">
+  <link rel="icon" href="../images/toast-logo.png">
+  <link rel="apple-touch-icon" href="../images/toast-logo.png">
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="../index.html">
+    <img class="nav-logo-toast" src="../images/toast-logo.png" alt="Toast mascot">
+    <img class="nav-logo-wordmark" src="../images/wordmark.png" alt="Wholegrain Studios">
+  </a>
+  <div class="nav-right">
+    <ul class="nav-links">
+      <li><a href="../about/index.html">About</a></li>
+      <li class="nav-dropdown">
+        <a class="nav-dropdown-trigger" href="../bakery/index.html">The Bakery <span class="nav-caret">&#9662;</span></a>
+        <div class="nav-dropdown-menu">
+          <a href="#game-shelf">The Game Shelf</a>
+          <a href="#essentials">The Essentials</a>
+        </div>
+      </li>
+    </ul>
+    <button class="dark-toggle" id="themeToggle" aria-label="Toggle dark mode">
+      <span class="dark-toggle-icon icon-sun">&#9728;&#65039;</span>
+      <span class="dark-toggle-icon icon-moon">&#127769;</span>
+    </button>
+  </div>
+</nav>
+
+<header class="page-hero">
+  <p class="section-eyebrow">Freshly baked</p>
+  <h1 class="page-hero-title">The <em>Bakery</em></h1>
+  <p class="page-hero-sub">Mmm something smells good in here!</p>
+</header>
+
+<div class="divider"><div class="divider-line"></div><span class="divider-icon">&#127806;</span><div class="divider-line"></div></div>
+
+<section class="games-section" id="game-shelf">
+  <div class="section-header">
+    <p class="section-eyebrow">Fresh from the oven</p>
+    <h2 class="section-title">The <em>Game</em> Shelf</h2>
+    <p class="section-sub">Browse our selection of half-baked games.</p>
+  </div>
+
+  <div class="game-grid game-grid--three">
+
+    <div class="game-card is-clickable" role="link" tabindex="0" data-href="https://pips.wholegrainstudios.co.uk/">
+      <div class="card-art">
+        <img class="card-cover" src="../images/cover-pips.png" alt="Pips cover art">
+      </div>
+      <div class="card-body">
+        <div class="card-tags">
+          <span class="ctag ctag-red">Dice</span>
+          <span class="ctag ctag-tan">Strategy</span>
+          <span class="ctag ctag-yellow">Luck</span>
+        </div>
+        <h3 class="card-title">Pips</h3>
+        <p class="card-desc">Push your luck and win it all with this tavern-themed dice game, inspired by Kingdom Come Deliverance. Roll your dice and grab that gold!</p>
+        <div class="card-footer">
+          <span class="card-play">Play now <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          <span class="card-platform">Browser &middot; Mobile</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="game-card is-clickable" role="link" tabindex="0" data-href="https://kaboo.wholegrainstudios.co.uk/">
+      <div class="card-art">
+        <img class="card-cover" src="../images/cover-kaboo.png" alt="Kaboo cover art">
+      </div>
+      <div class="card-body">
+        <div class="card-tags">
+          <span class="ctag ctag-tan">Cards</span>
+          <span class="ctag ctag-green">Strategy</span>
+          <span class="ctag ctag-red">Fast-Paced</span>
+          <span class="ctag ctag-blue">Memory</span>
+        </div>
+        <h3 class="card-title">Kaboo</h3>
+        <p class="card-desc">Kaboo will test your memory, and your patience! Can you get the lowest score of all your friends? Snap your way to victory with this fast-paced thrilling card game!</p>
+        <div class="card-footer">
+          <span class="card-play">Play now <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          <span class="card-platform">Browser &middot; Mobile</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="game-card wip">
+      <div class="card-art">
+        <img class="card-cover" src="../images/cover-lumi.png" alt="Lumi cover art">
+        <span class="wip-badge">In the oven</span>
+      </div>
+      <div class="card-body">
+        <div class="card-tags">
+          <span class="ctag ctag-red">Action</span>
+          <span class="ctag ctag-blue">PvP</span>
+          <span class="ctag ctag-green">PvE</span>
+        </div>
+        <h3 class="card-title">Lumi</h3>
+        <p class="card-desc">Join Lumi and his friends in this action-packed PvP arena game. Grab power-ups, freeze your opponents, and cast your magic spells until you're the last one standing!</p>
+        <div class="card-progress">
+          <div class="progress-label"><span>Baking progress</span><span>Dough Rising</span></div>
+          <div class="progress-bar"><div class="progress-fill progress-fill--rising"></div></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<div class="divider"><div class="divider-line"></div><span class="divider-icon">&#127838;</span><div class="divider-line"></div></div>
+
+<section class="games-section" id="essentials">
+  <div class="section-header">
+    <p class="section-eyebrow">Ready to eat</p>
+    <h2 class="section-title">The <em>Essentials</em></h2>
+    <p class="section-sub">Handy little apps for everyday life. Same wholesome recipe - just as useful as they are friendly.</p>
+  </div>
+
+  <div class="game-grid game-grid--three">
+
+    <div class="game-card">
+      <div class="card-art card-art-placeholder">
+        <span class="card-art-emoji">&#129529;</span>
+      </div>
+      <div class="card-body">
+        <div class="card-tags">
+          <span class="ctag ctag-green">Organisation</span>
+          <span class="ctag ctag-tan">Household</span>
+          <span class="ctag ctag-blue">Productivity</span>
+        </div>
+        <h3 class="card-title">Tadoo</h3>
+        <p class="card-desc">Organise your chores in one easy, flexible place. Get housework done without it piling up!</p>
+        <div class="card-footer">
+          <span class="card-play">Coming soon <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          <span class="card-platform">Mobile &middot; Web</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<footer>
+  <span class="footer-note">Baked fresh by one person &middot; &copy; 2026</span>
+</footer>
+
+<script src="../js/main.js" defer></script>
+</body>
+</html>

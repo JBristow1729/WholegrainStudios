@@ -1,7 +1,11 @@
-const CACHE_NAME = 'wholegrain-studios-v8';
+const CACHE_NAME = 'wholegrain-studios-v9';
 const APP_SHELL = [
   './',
   './index.html',
+  './about/',
+  './about/index.html',
+  './bakery/',
+  './bakery/index.html',
   './css/styles.css',
   './js/main.js',
   './manifest.json',
