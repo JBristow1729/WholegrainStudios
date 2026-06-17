@@ -98,18 +98,15 @@
       return;
     }
 
-    storeLinkState(state);
-    status.textContent = 'Sign in or create a Wholegrain account to link this profile.';
-    window.netlifyIdentity.open();
+    openIdentityDialog();
   }
 
   async function linkAccount() {
     if (linkInProgress) return;
 
     const user = getUser();
-    const token = user && user.token && user.token.access_token;
-    if (!token) {
-      handleLinkClick();
+    if (!user) {
+      openIdentityDialog();
       return;
     }
 
@@ -118,6 +115,14 @@
     status.textContent = 'Linking your account...';
 
     try {
+      const token = await getIdentityToken(user);
+      if (!token) {
+        openIdentityDialog('Please sign in before linking your account.');
+        linkButton.disabled = false;
+        linkInProgress = false;
+        return;
+      }
+
       const response = await fetch(LINK_ENDPOINT, {
         method: 'POST',
         headers: {
@@ -128,6 +133,10 @@
       });
 
       const result = await response.json().catch(() => ({}));
+      if (response.status === 401) {
+        openIdentityDialog(result.message || 'Please sign in before linking your account.');
+        return;
+      }
       if (!response.ok) throw new Error(result.message || 'Unable to link this account.');
 
       clearStoredLinkState();
@@ -138,6 +147,19 @@
       linkButton.disabled = false;
       linkInProgress = false;
     }
+  }
+
+  async function getIdentityToken(user) {
+    if (user && typeof user.jwt === 'function') return user.jwt();
+    return user && user.token && user.token.access_token;
+  }
+
+  function openIdentityDialog(message = 'Sign in or create a Wholegrain account to link this profile.') {
+    storeLinkState(state);
+    status.textContent = message;
+    linkButton.disabled = false;
+    linkInProgress = false;
+    window.netlifyIdentity.open('login');
   }
 
   function showFatal(message) {
