@@ -3,32 +3,32 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Wholegrain Studios — fresh-baked indie games. Good ingredients, no fillers.">
+  <meta name="description" content="The Bakery — every game and app baked by Wholegrain Studios. Good ingredients, no fillers.">
   <meta name="theme-color" content="#fdf0dc">
-  <title>Wholegrain Studios</title>
-  <link rel="manifest" href="manifest.json">
+  <title>The Bakery · Wholegrain Studios</title>
+  <link rel="manifest" href="../manifest.json">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Inter:wght@300;400;500&family=Fredoka+One&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/styles.css">
-  <link rel="icon" href="images/toast-logo.png">
-  <link rel="apple-touch-icon" href="images/toast-logo.png">
+  <link rel="stylesheet" href="../css/styles.css">
+  <link rel="icon" href="../images/toast-logo.png">
+  <link rel="apple-touch-icon" href="../images/toast-logo.png">
 </head>
 <body>
 
 <nav>
-  <a class="nav-logo" href="#">
-    <img class="nav-logo-toast" src="images/toast-logo.png" alt="Toast mascot">
-    <img class="nav-logo-wordmark" src="images/wordmark.png" alt="Wholegrain Studios">
+  <a class="nav-logo" href="../index.html">
+    <img class="nav-logo-toast" src="../images/toast-logo.png" alt="Toast mascot">
+    <img class="nav-logo-wordmark" src="../images/wordmark.png" alt="Wholegrain Studios">
   </a>
   <div class="nav-right">
     <ul class="nav-links">
-      <li><a href="about/">About</a></li>
+      <li><a href="../about/">About</a></li>
       <li class="nav-dropdown">
-        <a class="nav-dropdown-trigger" href="bakery/">The Bakery <span class="nav-caret">▾</span></a>
+        <a class="nav-dropdown-trigger" href="../bakery/">The Bakery <span class="nav-caret">▾</span></a>
         <div class="nav-dropdown-menu">
-          <a href="bakery/#game-shelf">The Game Shelf</a>
-          <a href="bakery/#essentials">The Essentials</a>
+          <a href="#game-shelf">The Game Shelf</a>
+          <a href="#essentials">The Essentials</a>
         </div>
       </li>
     </ul>
@@ -39,38 +39,26 @@
   </div>
 </nav>
 
-<section class="hero">
-  <div class="hero-brand">
-    <img class="hero-toast" src="images/toast-idle-wave.gif" alt="Toast mascot waving">
-    <img class="hero-title-img" src="images/hero-wordmark.png" alt="Wholegrain Studios">
-  </div>
-  <p class="hero-tagline"><strong>Fresh-baked indie games.</strong> Good ingredients, no fillers.</p>
-  <div class="hero-badges">
-    <span class="badge badge-green">🌿 100% Wholesome</span>
-    <span class="badge badge-tan">🍞 Home Baked</span>
-    <span class="badge badge-green">🎮 Nutritious</span>
-    <span class="badge badge-tan">✨ No nasties</span>
-  </div>
-  <a href="#games" class="hero-cta">
-    Browse the display shelf
-    <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-  </a>
-</section>
+<header class="page-hero">
+  <p class="section-eyebrow">The whole menu</p>
+  <h1 class="page-hero-title">The <em>Bakery</em></h1>
+  <p class="page-hero-sub">Every game and app, fresh out of the oven. Pull up a stool and have a browse — everything here is made with care and zero nasties.</p>
+</header>
 
 <div class="divider"><div class="divider-line"></div><span class="divider-icon">🌾</span><div class="divider-line"></div></div>
 
-<section class="games-section" id="games">
+<section class="games-section" id="game-shelf">
   <div class="section-header">
     <p class="section-eyebrow">Fresh from the oven</p>
-    <h2 class="section-title">The <em>Display</em> Shelf</h2>
+    <h2 class="section-title">The <em>Game</em> Shelf</h2>
     <p class="section-sub">Every title made with care. No microtransactions. No bloat. Just good fun.</p>
   </div>
 
-  <div class="game-grid">
+  <div class="game-grid game-grid--three">
 
     <div class="game-card is-clickable" role="link" tabindex="0" data-href="https://pips.wholegrainstudios.co.uk/">
       <div class="card-art">
-        <img class="card-cover" src="images/cover-pips.png" alt="Pips cover art">
+        <img class="card-cover" src="../images/cover-pips.png" alt="Pips cover art">
       </div>
       <div class="card-body">
         <div class="card-tags">
@@ -89,7 +77,7 @@
 
     <div class="game-card is-clickable" role="link" tabindex="0" data-href="https://kaboo.wholegrainstudios.co.uk/">
       <div class="card-art">
-        <img class="card-cover" src="images/cover-kaboo.png" alt="Kaboo cover art">
+        <img class="card-cover" src="../images/cover-kaboo.png" alt="Kaboo cover art">
       </div>
       <div class="card-body">
         <div class="card-tags">
@@ -109,7 +97,7 @@
 
     <div class="game-card wip">
       <div class="card-art">
-        <img class="card-cover" src="images/cover-lumi.png" alt="Lumi cover art">
+        <img class="card-cover" src="../images/cover-lumi.png" alt="Lumi cover art">
         <span class="wip-badge">In the oven</span>
       </div>
       <div class="card-body">
@@ -128,36 +116,38 @@
     </div>
 
   </div>
-
-  <div class="section-cta">
-    <a href="bakery/" class="hero-cta">
-      Go to the bakery
-      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-    </a>
-  </div>
 </section>
 
 <div class="divider"><div class="divider-line"></div><span class="divider-icon">🍞</span><div class="divider-line"></div></div>
 
-<section class="about-section" id="about">
-  <div class="about-inner">
-    <div class="about-text">
-      <h2>Hi, I'm Jake, and I make games I want to play</h2>
-      <p>Wholegrain Studios started one afternoon when my friend begged me to make a specific game that we couldn't find an adequate version of online. Lovingly naming it Lavern Dice (The font made "T" look like "L"), we played, tested and iterated until it evolved into my first game - Pips.</p>
-      <p>I want to make games that are fun to play, not products in disguise trying to steal your money or your attention. Everything in the bakery has been made because I loved doing it.</p>
-      <p>I hope you enjoy my home-baked games as much as I do!</p>
+<section class="games-section" id="essentials">
+  <div class="section-header">
+    <p class="section-eyebrow">Daily bread</p>
+    <h2 class="section-title">The <em>Essentials</em></h2>
+    <p class="section-sub">Handy little apps for everyday life. Same wholesome recipe — just as useful as they are friendly.</p>
+  </div>
+
+  <div class="game-grid game-grid--three">
+
+    <div class="game-card">
+      <div class="card-art card-art-placeholder">
+        <span class="card-art-emoji">🧹</span>
+      </div>
+      <div class="card-body">
+        <div class="card-tags">
+          <span class="ctag ctag-green">Organisation</span>
+          <span class="ctag ctag-tan">Household</span>
+          <span class="ctag ctag-blue">Productivity</span>
+        </div>
+        <h3 class="card-title">Tadoo</h3>
+        <p class="card-desc">Organise your chores in one easy, flexible place. Get housework done without it piling up!</p>
+        <div class="card-footer">
+          <span class="card-play">Coming soon <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          <span class="card-platform">Mobile · Web</span>
+        </div>
+      </div>
     </div>
-    <div class="nutrition-panel">
-      <div class="nutrition-title">Ingredients</div>
-      <div class="nutrition-serving">Per serving · One game session</div>
-      <div class="nutrition-row"><span class="label">Games published</span><span class="value">2 kcal</span></div>
-      <div class="nutrition-row"><span class="label">In development</span><span class="value">2 kcal</span></div>
-      <div class="nutrition-row"><span class="label">Microtransactions</span><span class="value">0g</span></div>
-      <div class="nutrition-row"><span class="label">Dark patterns</span><span class="value">0g</span></div>
-      <div class="nutrition-row"><span class="label">Artificial additives</span><span class="value">0g</span></div>
-      <div class="nutrition-row"><span class="label">Playable on mobile</span><span class="value">✓ Hopefully</span></div>
-      <div class="nutrition-note">* % Daily values based on a standard gaming session. Wholegrain Games contains no manipulative flavours, attention preservatives, or loot boxes. May cause repeated play sessions.</div>
-    </div>
+
   </div>
 </section>
 
@@ -165,7 +155,6 @@
   <span class="footer-note">Baked fresh by one person &middot; &copy; 2026</span>
 </footer>
 
-<script src="https://identity.netlify.com/v1/netlify-identity-widget.js" defer></script>
-<script src="js/main.js" defer></script>
+<script src="../js/main.js" defer></script>
 </body>
 </html>

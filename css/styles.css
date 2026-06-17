@@ -591,10 +591,123 @@
     .footer-logo img { height: 32px; width: auto; }
     .footer-note { font-size: 0.78rem; color: var(--text-dim); }
 
+    /* ── NAV DROPDOWN ── */
+    .nav-dropdown { position: relative; }
+    .nav-dropdown-trigger {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .nav-caret {
+      font-size: 0.55rem;
+      transform: translateY(1px);
+      transition: transform 0.2s;
+    }
+    .nav-dropdown:hover .nav-caret,
+    .nav-dropdown:focus-within .nav-caret { transform: translateY(1px) rotate(180deg); }
+
+    .nav-dropdown-menu {
+      position: absolute;
+      top: 100%;
+      right: 0;
+      margin-top: 12px;
+      min-width: 190px;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      padding: 8px;
+      background: var(--card-bg);
+      border: 2px solid var(--border);
+      border-radius: 14px;
+      box-shadow: 0 8px 24px var(--shadow);
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(-6px);
+      transition: opacity 0.18s, transform 0.18s, background 0.3s, border-color 0.3s;
+      z-index: 200;
+    }
+    /* Invisible bridge so the menu stays open while crossing the gap */
+    .nav-dropdown-menu::before {
+      content: '';
+      position: absolute;
+      top: -14px; left: 0; right: 0;
+      height: 14px;
+    }
+    .nav-dropdown:hover .nav-dropdown-menu,
+    .nav-dropdown:focus-within .nav-dropdown-menu {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0);
+    }
+    .nav-dropdown-menu a {
+      font-family: 'Nunito', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--text-mid);
+      padding: 9px 12px;
+      border-radius: 9px;
+      white-space: nowrap;
+      transition: background 0.16s, color 0.16s;
+    }
+    .nav-dropdown-menu a:hover { background: var(--cream-dark); color: var(--crust); }
+
+    /* ── PAGE HERO (sub-pages) ── */
+    .page-hero {
+      text-align: center;
+      max-width: 820px;
+      margin: 0 auto;
+      padding: 140px 24px 4px;
+    }
+    .page-hero-title {
+      font-family: 'Nunito', sans-serif;
+      font-size: clamp(2.4rem, 6vw, 3.6rem);
+      font-weight: 900;
+      color: var(--brown);
+      line-height: 1.1;
+      margin: 6px 0 14px;
+    }
+    .page-hero-title em { font-style: normal; color: var(--tan-dark); }
+    .page-hero-sub {
+      font-family: 'Nunito', sans-serif;
+      font-size: clamp(1rem, 2.4vw, 1.18rem);
+      font-weight: 600;
+      color: var(--text-mid);
+      line-height: 1.6;
+      max-width: 620px;
+      margin: 0 auto;
+    }
+
+    /* ── 3-PER-ROW GRID (Bakery) ── */
+    .games-section { scroll-margin-top: 88px; }
+    .game-grid--three { grid-template-columns: repeat(3, 1fr); }
+
+    /* Placeholder card art (no cover image yet) */
+    .card-art-placeholder { background: linear-gradient(135deg, var(--tan), var(--crust)); }
+    .card-art-emoji {
+      font-size: 3.6rem;
+      line-height: 1;
+      filter: drop-shadow(0 4px 12px rgba(0,0,0,0.28));
+    }
+
+    /* Section-level CTA (bottom-right "Go to the bakery") */
+    .section-cta {
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 32px;
+    }
+    .section-cta .hero-cta {
+      padding: 11px 26px;
+      font-size: 0.92rem;
+    }
+
     /* ── RESPONSIVE ── */
     @media (max-width: 768px) {
       nav { padding: 10px 16px; }
-      .nav-links { display: none; }
+      .nav-right { gap: 16px; }
+      .nav-links { gap: 16px; }
+      .nav-links a { font-size: 0.82rem; }
+      .game-grid--three { grid-template-columns: repeat(2, 1fr); }
+      .page-hero { padding-top: 124px; }
       .hero { padding: 108px 18px 64px; }
       .hero::before { inset: 70px 16px 20px; }
       .hero-brand {
@@ -608,10 +721,16 @@
       footer { padding: 28px 20px; flex-direction: column; }
     }
     @media (max-width: 500px) {
+      .nav-logo-wordmark { display: none; }
+      .nav-right { gap: 12px; }
+      .nav-links { gap: 12px; }
+      .nav-links a { font-size: 0.8rem; }
       .hero-brand { gap: 8px; }
       .hero-toast { width: clamp(112px, 33vw, 150px); }
       .hero-title-img { width: min(54vw, 220px); }
       .game-grid { grid-template-columns: 1fr; }
+      .game-grid--three { grid-template-columns: 1fr; }
+      .section-cta { justify-content: center; }
     }
     @media (prefers-reduced-motion: reduce) {
       .game-card, body, nav { transition: none; }

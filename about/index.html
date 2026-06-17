@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="About Wholegrain Studios — fresh-baked indie games made by one person, with good ingredients and no fillers.">
+  <meta name="theme-color" content="#fdf0dc">
+  <title>About · Wholegrain Studios</title>
+  <link rel="manifest" href="../manifest.json">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Inter:wght@300;400;500&family=Fredoka+One&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/styles.css">
+  <link rel="icon" href="../images/toast-logo.png">
+  <link rel="apple-touch-icon" href="../images/toast-logo.png">
+  <style>
+    /* ── ABOUT PAGE ── */
+    .story-section {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 64px 24px 24px;
+    }
+    .story-grid {
+      display: grid;
+      grid-template-columns: 0.85fr 1.15fr;
+      gap: 56px;
+      align-items: center;
+    }
+
+    /* Mascot panel — mirrors the hero's dashed-border treatment */
+    .story-art {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px;
+    }
+    .story-art::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border: 2.5px dashed var(--border);
+      border-radius: 24px;
+      transition: border-color 0.3s;
+    }
+    .story-art img {
+      position: relative;
+      width: clamp(160px, 30vw, 240px);
+      height: auto;
+      filter: drop-shadow(0 10px 28px var(--shadow));
+    }
+
+    .story-body h2 {
+      font-family: 'Nunito', sans-serif;
+      font-size: clamp(1.4rem, 3vw, 1.8rem);
+      font-weight: 900;
+      color: var(--brown);
+      line-height: 1.2;
+      margin: 26px 0 12px;
+    }
+    .story-body h2:first-child { margin-top: 0; }
+    .story-body p {
+      font-size: 0.94rem;
+      line-height: 1.85;
+      color: var(--text-mid);
+      margin-bottom: 14px;
+    }
+    .story-body p:last-child { margin-bottom: 0; }
+    .story-body strong { color: var(--crust); font-weight: 800; }
+
+    /* Values row */
+    .values-section {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 24px 24px 96px;
+    }
+    .value-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+    .value-card {
+      background: var(--card-bg);
+      border: 2.5px solid var(--border);
+      border-radius: 20px;
+      box-shadow: 0 3px 0 var(--border);
+      padding: 26px 24px;
+      text-align: center;
+      transition: transform 0.2s, box-shadow 0.2s, background 0.3s, border-color 0.3s;
+    }
+    .value-card:hover {
+      transform: translateY(-4px) rotate(-0.5deg);
+      box-shadow: 0 8px 0 var(--tan);
+    }
+    .value-emoji {
+      font-size: 2.4rem;
+      line-height: 1;
+      display: block;
+      margin-bottom: 12px;
+    }
+    .value-card h3 {
+      font-family: 'Nunito', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 900;
+      color: var(--brown);
+      margin-bottom: 8px;
+    }
+    .value-card p {
+      font-size: 0.84rem;
+      line-height: 1.65;
+      color: var(--text-mid);
+    }
+
+    @media (max-width: 768px) {
+      .story-grid { grid-template-columns: 1fr; gap: 36px; }
+      .story-art { padding: 28px; }
+      .value-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="../index.html">
+    <img class="nav-logo-toast" src="../images/toast-logo.png" alt="Toast mascot">
+    <img class="nav-logo-wordmark" src="../images/wordmark.png" alt="Wholegrain Studios">
+  </a>
+  <div class="nav-right">
+    <ul class="nav-links">
+      <li><a href="../about/">About</a></li>
+      <li class="nav-dropdown">
+        <a class="nav-dropdown-trigger" href="../bakery/">The Bakery <span class="nav-caret">▾</span></a>
+        <div class="nav-dropdown-menu">
+          <a href="../bakery/#game-shelf">The Game Shelf</a>
+          <a href="../bakery/#essentials">The Essentials</a>
+        </div>
+      </li>
+    </ul>
+    <button class="dark-toggle" id="themeToggle" aria-label="Toggle dark mode">
+      <span class="dark-toggle-icon icon-sun">☀️</span>
+      <span class="dark-toggle-icon icon-moon">🌙</span>
+    </button>
+  </div>
+</nav>
+
+<header class="page-hero">
+  <p class="section-eyebrow">Our little bakery</p>
+  <h1 class="page-hero-title">About <em>Wholegrain</em></h1>
+  <p class="page-hero-sub">Fresh-baked indie games and apps, made by one person who just wants you to have a good time.</p>
+</header>
+
+<div class="divider"><div class="divider-line"></div><span class="divider-icon">🌾</span><div class="divider-line"></div></div>
+
+<section class="story-section">
+  <div class="story-grid">
+    <div class="story-art">
+      <img src="../images/toast-mascot.png" alt="Toast mascot">
+    </div>
+    <div class="story-body">
+      <h2>What is Wholegrain Studios?</h2>
+      <p>Wholegrain Studios is a tiny, one-person bakery for games and apps. It started one afternoon when a friend begged me to make a specific game we couldn't find an adequate version of online. We played, tested and iterated until it rose into my very first title — <strong>Pips</strong>.</p>
+      <p>Since then it's grown into a small shelf of things I genuinely wanted to exist: games that are fun for their own sake, and little apps that quietly make everyday life easier.</p>
+
+      <h2>Who I am</h2>
+      <p>Hi, I'm <strong>Jake</strong>. I'm a developer who makes the things I want to play and use. No big studio, no investors leaning over my shoulder — just me, a keyboard, and a stubborn belief that software should feel <strong>wholesome</strong>.</p>
+
+      <h2>What I do</h2>
+      <p>I design, build, and bake everything end to end. Every title is made with care — <strong>no microtransactions, no dark patterns, no bloat</strong>. Just good ingredients and no fillers.</p>
+      <p>I hope you enjoy my home-baked creations as much as I do!</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"><div class="divider-line"></div><span class="divider-icon">🍞</span><div class="divider-line"></div></div>
+
+<section class="values-section">
+  <div class="section-header">
+    <p class="section-eyebrow">The recipe</p>
+    <h2 class="section-title">Made the <em>wholesome</em> way</h2>
+  </div>
+  <div class="value-grid">
+    <div class="value-card">
+      <span class="value-emoji">🌿</span>
+      <h3>No nasties</h3>
+      <p>No microtransactions, no loot boxes, no manipulative tricks. What you see is what you get.</p>
+    </div>
+    <div class="value-card">
+      <span class="value-emoji">🍞</span>
+      <h3>Home baked</h3>
+      <p>Designed, built and tested by one person who actually cares about every detail.</p>
+    </div>
+    <div class="value-card">
+      <span class="value-emoji">❤️</span>
+      <h3>Made with love</h3>
+      <p>Everything in the bakery exists because I loved making it — and want you to love using it.</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span class="footer-note">Baked fresh by one person &middot; &copy; 2026</span>
+</footer>
+
+<script src="../js/main.js" defer></script>
+</body>
+</html>
