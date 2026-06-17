@@ -24,10 +24,14 @@ exports.handler = async (event, context) => {
   const game = cleanString(payload.game).toLowerCase();
   const gameAccountId = cleanString(payload.gameAccountId);
   const returnTo = cleanString(payload.returnTo);
+  const linkChoice = cleanString(payload.linkChoice);
+  const conflictToken = cleanString(payload.conflictToken);
   const config = ACTIVE_GAME_LINKS[game];
 
   if (!config) return json(400, { message: 'Unknown game account type.' });
   if (!isSafeGameAccountId(gameAccountId)) return json(400, { message: 'Invalid game account ID.' });
+  if (linkChoice && !isSafeLinkChoice(linkChoice)) return json(400, { message: 'Invalid account link choice.' });
+  if (conflictToken && !isSafeConflictToken(conflictToken)) return json(400, { message: 'Invalid account link choice token.' });
 
   const endpoint = cleanString(process.env[config.endpointEnv]);
   const linkSecret = cleanString(process.env.WHOLEGRAIN_LINK_SECRET);
