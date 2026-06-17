@@ -8,6 +8,7 @@
   const params = new URLSearchParams(window.location.search);
   const queryState = {
     game: normalize(params.get('game')),
+    gameName: normalize(params.get('gameName')),
     gameAccountId: normalize(params.get('gameAccountId')),
     returnTo: normalize(params.get('returnTo'))
   };
@@ -286,6 +287,7 @@
       const parsed = JSON.parse(value);
       const stored = {
         game: normalize(parsed.game),
+        gameName: normalize(parsed.gameName),
         gameAccountId: normalize(parsed.gameAccountId),
         returnTo: normalize(parsed.returnTo)
       };
@@ -309,7 +311,7 @@
   }
 
   function displayGameName(game) {
-    return ({ pips: 'Pips' }[game] || game);
+    return ({ pips: 'Pips', tadoo: 'Tadoo' }[String(game || '').toLowerCase()] || state.gameName || game);
   }
 
   function escapeHtml(value) {

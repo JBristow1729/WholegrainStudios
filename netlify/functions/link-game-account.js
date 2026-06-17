@@ -4,6 +4,12 @@ const ACTIVE_GAME_LINKS = {
     endpointEnv: 'PIPS_LINK_ENDPOINT',
     returnOriginsEnv: 'PIPS_RETURN_ORIGINS',
     restoreTokenParam: 'pipsRestoreToken'
+  },
+  tadoo: {
+    name: 'Tadoo',
+    endpointEnv: 'TADOO_LINK_ENDPOINT',
+    returnOriginsEnv: 'TADOO_RETURN_ORIGINS',
+    restoreTokenParam: 'tadooRestoreToken'
   }
 };
 

@@ -4,6 +4,11 @@
       "name": "Pips",
       "endpointEnv": "PIPS_LINK_ENDPOINT",
       "returnOriginsEnv": "PIPS_RETURN_ORIGINS"
+    },
+    "tadoo": {
+      "name": "Tadoo",
+      "endpointEnv": "TADOO_LINK_ENDPOINT",
+      "returnOriginsEnv": "TADOO_RETURN_ORIGINS"
     }
   }
 }
