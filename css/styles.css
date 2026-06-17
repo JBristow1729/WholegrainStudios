@@ -595,14 +595,25 @@
     @media (max-width: 768px) {
       nav { padding: 10px 16px; }
       .nav-links { display: none; }
+      .hero { padding: 108px 18px 64px; }
       .hero::before { inset: 70px 16px 20px; }
+      .hero-brand {
+        width: 100%;
+        max-width: 680px;
+        gap: clamp(10px, 3vw, 22px);
+      }
+      .hero-toast { width: clamp(120px, 34vw, 220px); }
+      .hero-title-img { width: clamp(190px, 52vw, 340px); }
       .about-inner { grid-template-columns: 1fr; gap: 40px; }
       footer { padding: 28px 20px; flex-direction: column; }
     }
-    @media (max-width: 500px) { .game-grid { grid-template-columns: 1fr; } }
+    @media (max-width: 500px) {
+      .hero-brand { gap: 8px; }
+      .hero-toast { width: clamp(112px, 33vw, 150px); }
+      .hero-title-img { width: min(54vw, 220px); }
+      .game-grid { grid-template-columns: 1fr; }
+    }
     @media (prefers-reduced-motion: reduce) {
-      .hero-brand { flex-direction: column; gap: 12px; }
-      .hero-title-img { width: clamp(210px, 75vw, 390px); }
       .game-card, body, nav { transition: none; }
     }
 
