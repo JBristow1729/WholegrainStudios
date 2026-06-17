@@ -1,4 +1,4 @@
-﻿const CACHE_NAME = 'wholegrain-studios-v7';
+const CACHE_NAME = 'wholegrain-studios-v8';
 const APP_SHELL = [
   './',
   './index.html',
@@ -10,6 +10,13 @@ const APP_SHELL = [
   './images/toast-logo.png',
   './images/wordmark.png',
   './images/toast-mascot.png',
+  './images/toast-idle-wave.gif',
+  './images/toast-loading.gif',
+  './images/loading-phrase-4.png',
+  './images/loading-phrase-5.png',
+  './images/loading-phrase-6.png',
+  './images/loading-phrase-7.png',
+  './images/loading-phrase-8.png',
   './images/hero-wordmark.png',
   './images/cover-pips.png',
   './images/cover-kaboo.png',

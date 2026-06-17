@@ -3,10 +3,14 @@
   const PENDING_LINK_KEY = 'wg-pending-account-link';
   const ACCOUNT_LINK_PATH = 'accounts/link/';
   const IDENTITY_HASH_KEYS = ['confirmation_token', 'invite_token', 'recovery_token', 'access_token', 'error'];
+  const LOADING_REDIRECT_DELAY = 650;
+  const LOADING_ASSET_ROOT = 'images/';
+  const LOADING_PHRASES = ['4', '5', '6', '7', '8'].map(id => `${LOADING_ASSET_ROOT}loading-phrase-${id}.png`);
 
   const html = document.documentElement;
   const themeButton = document.getElementById('themeToggle');
   let accountLinkRedirecting = false;
+  let loadingOverlay;
 
   initThemeToggle();
   initIdentityHandoff();
@@ -77,7 +81,38 @@
 
   function redirectToAccountLink() {
     const hash = hasIdentityHash() ? window.location.hash : '';
-    window.location.replace(`${ACCOUNT_LINK_PATH}${hash}`);
+    showLoadingOverlay();
+    window.setTimeout(() => {
+      window.location.replace(`${ACCOUNT_LINK_PATH}${hash}`);
+    }, LOADING_REDIRECT_DELAY);
+  }
+
+  function showLoadingOverlay() {
+    const overlay = getLoadingOverlay();
+    overlay.querySelector('.loading-phrase').src = pickLoadingPhrase();
+    overlay.hidden = false;
+    window.requestAnimationFrame(() => overlay.classList.add('is-visible'));
+  }
+
+  function getLoadingOverlay() {
+    if (loadingOverlay) return loadingOverlay;
+    loadingOverlay = document.createElement('div');
+    loadingOverlay.className = 'loading-overlay';
+    loadingOverlay.hidden = true;
+    loadingOverlay.setAttribute('role', 'status');
+    loadingOverlay.setAttribute('aria-live', 'polite');
+    loadingOverlay.innerHTML = `
+      <div class="loading-overlay-inner">
+        <img class="loading-toast" src="${LOADING_ASSET_ROOT}toast-loading.gif" alt="Toast loading animation">
+        <img class="loading-phrase" src="${pickLoadingPhrase()}" alt="Loading">
+      </div>
+    `;
+    document.body.appendChild(loadingOverlay);
+    return loadingOverlay;
+  }
+
+  function pickLoadingPhrase() {
+    return LOADING_PHRASES[Math.floor(Math.random() * LOADING_PHRASES.length)];
   }
 
   function hasPendingLink() {

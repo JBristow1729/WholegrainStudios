@@ -2,6 +2,9 @@
   const LINK_ENDPOINT = '/.netlify/functions/link-game-account';
   const THEME_KEY = 'wg-theme';
   const PENDING_LINK_KEY = 'wg-pending-account-link';
+  const LOADING_REDIRECT_DELAY = 650;
+  const LOADING_ASSET_ROOT = '../../images/';
+  const LOADING_PHRASES = ['4', '5', '6', '7', '8'].map(id => `${LOADING_ASSET_ROOT}loading-phrase-${id}.png`);
   const params = new URLSearchParams(window.location.search);
   const queryState = {
     game: normalize(params.get('game')),
@@ -18,6 +21,7 @@
   const html = document.documentElement;
   const themeButton = document.getElementById('themeToggle');
   let linkInProgress = false;
+  let loadingOverlay;
 
   window.addEventListener('load', init);
 
@@ -113,6 +117,7 @@
     linkInProgress = true;
     linkButton.disabled = true;
     status.textContent = 'Linking your account...';
+    showLoadingOverlay();
 
     try {
       const token = await getIdentityToken(user);
@@ -141,12 +146,49 @@
 
       clearStoredLinkState();
       status.textContent = 'Account linked. Returning to the game...';
-      window.location.assign(result.returnTo);
+      window.setTimeout(() => window.location.assign(result.returnTo), LOADING_REDIRECT_DELAY);
     } catch (error) {
+      hideLoadingOverlay();
       status.textContent = error.message || 'Unable to link this account.';
       linkButton.disabled = false;
       linkInProgress = false;
     }
+  }
+
+  function showLoadingOverlay() {
+    const overlay = getLoadingOverlay();
+    overlay.querySelector('.loading-phrase').src = pickLoadingPhrase();
+    overlay.hidden = false;
+    window.requestAnimationFrame(() => overlay.classList.add('is-visible'));
+  }
+
+  function hideLoadingOverlay() {
+    if (!loadingOverlay) return;
+    loadingOverlay.classList.remove('is-visible');
+    window.setTimeout(() => {
+      if (loadingOverlay) loadingOverlay.hidden = true;
+    }, 180);
+  }
+
+  function getLoadingOverlay() {
+    if (loadingOverlay) return loadingOverlay;
+    loadingOverlay = document.createElement('div');
+    loadingOverlay.className = 'loading-overlay';
+    loadingOverlay.hidden = true;
+    loadingOverlay.setAttribute('role', 'status');
+    loadingOverlay.setAttribute('aria-live', 'polite');
+    loadingOverlay.innerHTML = `
+      <div class="loading-overlay-inner">
+        <img class="loading-toast" src="${LOADING_ASSET_ROOT}toast-loading.gif" alt="Toast loading animation">
+        <img class="loading-phrase" src="${pickLoadingPhrase()}" alt="Loading">
+      </div>
+    `;
+    document.body.appendChild(loadingOverlay);
+    return loadingOverlay;
+  }
+
+  function pickLoadingPhrase() {
+    return LOADING_PHRASES[Math.floor(Math.random() * LOADING_PHRASES.length)];
   }
 
   async function getIdentityToken(user) {
@@ -157,6 +199,7 @@
   function openIdentityDialog(message = 'Sign in or create a Wholegrain account to link this profile.') {
     storeLinkState(state);
     status.textContent = message;
+    hideLoadingOverlay();
     linkButton.disabled = false;
     linkInProgress = false;
     window.netlifyIdentity.open('login');
