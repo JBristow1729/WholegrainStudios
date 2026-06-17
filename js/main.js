@@ -6,6 +6,7 @@
 
   const html = document.documentElement;
   const themeButton = document.getElementById('themeToggle');
+  let accountLinkRedirecting = false;
 
   initThemeToggle();
   initIdentityHandoff();
@@ -41,20 +42,37 @@
   }
 
   function initIdentityHandoff() {
-    if (hasIdentityHash() && hasPendingLink()) {
-      redirectToAccountLink();
-      return;
-    }
-
     if (!window.netlifyIdentity) return;
 
     window.netlifyIdentity.on('init', user => {
-      if (user && hasPendingLink()) redirectToAccountLink();
+      if (user) redirectToAccountLinkIfPending();
     });
     window.netlifyIdentity.on('login', () => {
-      if (hasPendingLink()) redirectToAccountLink();
+      redirectToAccountLinkIfPending();
     });
     window.netlifyIdentity.init();
+
+    if (hasPendingLink()) watchForConfirmedIdentity();
+  }
+
+  function watchForConfirmedIdentity() {
+    let attempts = 0;
+    const maxAttempts = 80;
+    const timer = window.setInterval(() => {
+      attempts += 1;
+      if (redirectToAccountLinkIfPending()) {
+        window.clearInterval(timer);
+        return;
+      }
+      if (attempts >= maxAttempts || !hasPendingLink()) window.clearInterval(timer);
+    }, 250);
+  }
+
+  function redirectToAccountLinkIfPending() {
+    if (accountLinkRedirecting || !hasPendingLink() || !getIdentityUser()) return false;
+    accountLinkRedirecting = true;
+    redirectToAccountLink();
+    return true;
   }
 
   function redirectToAccountLink() {
@@ -64,6 +82,10 @@
 
   function hasPendingLink() {
     return Boolean(localStorage.getItem(PENDING_LINK_KEY) || sessionStorage.getItem(PENDING_LINK_KEY));
+  }
+
+  function getIdentityUser() {
+    return window.netlifyIdentity && window.netlifyIdentity.currentUser ? window.netlifyIdentity.currentUser() : null;
   }
 
   function hasIdentityHash() {
