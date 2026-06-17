@@ -60,6 +60,7 @@ exports.handler = async (event, context) => {
       },
       body: JSON.stringify({
         identityId,
+        identityEmail: cleanString(user.email),
         gameAccountId,
         linkChoice: linkChoice || undefined,
         conflictToken: conflictToken || undefined

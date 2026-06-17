@@ -40,7 +40,7 @@
     }
 
     storeLinkState(state);
-    title.innerHTML = `Link <span class="game-name">${escapeHtml(displayGameName(state.game))}</span> account`;
+    title.innerHTML = `Link <span class="game-name">${escapeHtml(displayGameName(state.gameName || state.game))}</span> account`;
     copy.textContent = `Connect this game profile to your Wholegrain account.`;
 
     renderDefaultActions();
@@ -311,7 +311,8 @@
   }
 
   function displayGameName(game) {
-    return ({ pips: 'Pips', tadoo: 'Tadoo' }[String(game || '').toLowerCase()] || state.gameName || game);
+    const value = String(game || '').trim();
+    return ({ pips: 'Pips', tadoo: 'Tadoo' }[value.toLowerCase()] || state.gameName || value);
   }
 
   function escapeHtml(value) {
