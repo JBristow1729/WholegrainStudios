@@ -8,7 +8,7 @@
   const themeButton = document.getElementById('themeToggle');
 
   initThemeToggle();
-  routeIdentityCallback();
+  initIdentityHandoff();
   initCards();
   initServiceWorker();
 
@@ -40,16 +40,30 @@
     if (persist) localStorage.setItem(THEME_KEY, theme);
   }
 
-  function routeIdentityCallback() {
-    if (!hasIdentityHash()) return;
-
-    const pendingLink = localStorage.getItem(PENDING_LINK_KEY) || sessionStorage.getItem(PENDING_LINK_KEY);
-    if (pendingLink) {
-      window.location.replace(`${ACCOUNT_LINK_PATH}${window.location.hash}`);
+  function initIdentityHandoff() {
+    if (hasIdentityHash() && hasPendingLink()) {
+      redirectToAccountLink();
       return;
     }
 
-    if (window.netlifyIdentity) window.netlifyIdentity.init();
+    if (!window.netlifyIdentity) return;
+
+    window.netlifyIdentity.on('init', user => {
+      if (user && hasPendingLink()) redirectToAccountLink();
+    });
+    window.netlifyIdentity.on('login', () => {
+      if (hasPendingLink()) redirectToAccountLink();
+    });
+    window.netlifyIdentity.init();
+  }
+
+  function redirectToAccountLink() {
+    const hash = hasIdentityHash() ? window.location.hash : '';
+    window.location.replace(`${ACCOUNT_LINK_PATH}${hash}`);
+  }
+
+  function hasPendingLink() {
+    return Boolean(localStorage.getItem(PENDING_LINK_KEY) || sessionStorage.getItem(PENDING_LINK_KEY));
   }
 
   function hasIdentityHash() {

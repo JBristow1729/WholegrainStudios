@@ -33,6 +33,7 @@ exports.handler = async (event, context) => {
   const allowedOrigins = getAllowedOrigins(config.returnOriginsEnv);
 
   if (!endpoint) return json(501, { message: `Missing ${config.endpointEnv} environment variable.` });
+  if (!isHttpUrl(endpoint)) return json(501, { message: `${config.endpointEnv} must be a full https URL.` });
   if (!linkSecret) return json(501, { message: 'Missing WHOLEGRAIN_LINK_SECRET environment variable.' });
 
   const safeReturnTo = validateReturnTo(returnTo, allowedOrigins);
@@ -52,7 +53,11 @@ exports.handler = async (event, context) => {
       })
     });
   } catch (error) {
-    return json(502, { message: `Unable to contact ${config.name}.` });
+    console.error(`Unable to contact ${config.name} link endpoint`, {
+      error: error && error.message,
+      endpointHost: safeHost(endpoint)
+    });
+    return json(502, { message: `Unable to contact ${config.name}. Check the configured link endpoint and that the game backend is deployed.` });
   }
 
   if (!upstream.ok) {
@@ -86,6 +91,23 @@ function validateReturnTo(returnTo, allowedOrigins) {
   if (!['https:', 'http:'].includes(parsed.protocol)) return null;
   if (parsed.protocol === 'http:' && !['localhost', '127.0.0.1'].includes(parsed.hostname)) return null;
   return allowedOrigins.includes(parsed.origin) ? parsed : null;
+}
+
+function isHttpUrl(value) {
+  try {
+    const parsed = new URL(value);
+    return parsed.protocol === 'https:' || (parsed.protocol === 'http:' && ['localhost', '127.0.0.1'].includes(parsed.hostname));
+  } catch (error) {
+    return false;
+  }
+}
+
+function safeHost(value) {
+  try {
+    return new URL(value).host;
+  } catch (error) {
+    return 'invalid-url';
+  }
 }
 
 function isSafeGameAccountId(value) {
