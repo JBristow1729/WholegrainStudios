@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2048 1024" role="img" aria-labelledby="title desc">
+  <title id="title">Nom cover art</title>
+  <desc id="desc">A cheerful Nom meal planning cover with chunky brown lettering, vegetables, and a picnic cloth background.</desc>
+  <defs>
+    <pattern id="cloth" width="380" height="380" patternUnits="userSpaceOnUse">
+      <rect width="380" height="380" fill="#fff3f3"/>
+      <path d="M0 0h190v380H0z" fill="#f58f8a"/>
+      <path d="M0 0h380v190H0z" fill="#f58f8a" opacity=".88"/>
+      <path d="M0 54c82-8 142-8 190 17v184c-66 10-126 8-190 3z" fill="#e74842" opacity=".72"/>
+      <path d="M190 0c74 8 125 6 190-15v212c-58 15-125 13-190 8z" fill="#fffafa" opacity=".82"/>
+      <path d="M0 190c78 6 135 6 190-5v195H0z" fill="#fffafa" opacity=".82"/>
+    </pattern>
+    <filter id="softShadow" x="-10%" y="-10%" width="120%" height="130%">
+      <feDropShadow dx="0" dy="12" stdDeviation="0" flood-color="#111" flood-opacity=".18"/>
+    </filter>
+  </defs>
+  <rect width="2048" height="1024" fill="url(#cloth)"/>
+  <g stroke="#050505" stroke-linecap="round" stroke-linejoin="round" filter="url(#softShadow)">
+    <g transform="translate(64 474)">
+      <path d="M166 128c-75-52-72-143 7-181 69-33 145 11 164 88 10 40-3 94-42 125-41 33-88 4-129-32z" fill="#e54536" stroke-width="16"/>
+      <path d="M190-80c23 37 38 71 44 112m-80-59c54 11 97 28 130 54m-137 11c40-28 80-45 121-53" fill="none" stroke="#a6d938" stroke-width="14"/>
+      <path d="M43 108c-35-44 8-110 68-91 27-76 108-45 99 19 74-7 100 74 34 113 9 67-75 96-116 38-45 32-110-23-85-79z" fill="#b2dc2f" stroke-width="16"/>
+    </g>
+    <g transform="translate(258 420)">
+      <path d="M15 241c28-91 36-181 9-259 53-33 105-14 140 41 40 65 57 145 38 234z" fill="#12a84d" stroke-width="16"/>
+      <path d="M63 18c49 28 87 82 114 162" fill="none" stroke-width="10"/>
+    </g>
+    <path d="M280 706c240-31 424-39 553-25 55 6 60 65 2 71-167 18-350 20-548 8-44-2-51-48-7-54z" fill="#fb931c" stroke-width="16"/>
+    <path d="M313 697c-31-36-44-82-29-125 145 4 314 54 489 125z" fill="#fb931c" stroke-width="16"/>
+    <path d="M359 651c-7 37-6 69 4 97m101-93c-8 27-9 60-5 93m116-67c-8 22-9 44-4 66" fill="none" stroke-width="10"/>
+    <g transform="translate(410 226)" fill="#9d7435" stroke-width="18">
+      <path d="M2 364V111C2 34 94 0 149 54l168 165V111c0-77 92-111 147-57l20 19c37 36 58 86 58 138v189c0 61-50 111-111 111-31 0-60-13-81-35L218 338v62c0 61-50 111-111 111S2 425 2 364z"/>
+    </g>
+    <g transform="translate(810 224)" fill="#9d7435" stroke-width="18">
+      <circle cx="216" cy="256" r="198"/>
+      <circle cx="216" cy="256" r="18" fill="#050505"/>
+    </g>
+    <g transform="translate(1188 230)" fill="#9d7435" stroke-width="18">
+      <path d="M2 358V111C2 34 94 0 149 54l168 165V111c0-77 92-111 147-57l20 19c37 36 58 86 58 138v189c0 61-50 111-111 111-31 0-60-13-81-35L218 338v20c0 61-50 111-111 111S2 419 2 358z"/>
+    </g>
+    <g transform="translate(1420 244)">
+      <path d="M8 96c5-95 77-137 169-119 116 22 207 107 225 219 14 90-26 152-95 178l-13-93-153-44-66-67-65 70z" fill="#762a86" stroke-width="16"/>
+      <circle cx="108" cy="7" r="24" fill="#050505" stroke-width="10"/>
+      <circle cx="182" cy="27" r="24" fill="#050505" stroke-width="10"/>
+      <circle cx="113" cy="2" r="6" fill="#fff" stroke="none"/>
+      <circle cx="187" cy="22" r="6" fill="#fff" stroke="none"/>
+      <path d="M72 48l41 12-11 17-44-12zm101 32l36 19-15 15-41-22z" fill="#fff3e1" stroke-width="8"/>
+    </g>
+  </g>
+</svg>
