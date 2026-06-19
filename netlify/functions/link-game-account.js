@@ -10,6 +10,12 @@ const ACTIVE_GAME_LINKS = {
     endpointEnv: 'TADOO_LINK_ENDPOINT',
     returnOriginsEnv: 'TADOO_RETURN_ORIGINS',
     restoreTokenParam: 'tadooRestoreToken'
+  },
+  nom: {
+    name: 'Nom',
+    endpointEnv: 'NOM_LINK_ENDPOINT',
+    returnOriginsEnv: 'NOM_RETURN_ORIGINS',
+    restoreTokenParam: 'nomRestoreToken'
   }
 };
 

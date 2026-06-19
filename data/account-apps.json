@@ -9,6 +9,11 @@
       "name": "Tadoo",
       "endpointEnv": "TADOO_LINK_ENDPOINT",
       "returnOriginsEnv": "TADOO_RETURN_ORIGINS"
+    },
+    "nom": {
+      "name": "Nom",
+      "endpointEnv": "NOM_LINK_ENDPOINT",
+      "returnOriginsEnv": "NOM_RETURN_ORIGINS"
     }
   }
 }
