@@ -16,6 +16,12 @@ const ACTIVE_GAME_LINKS = {
     endpointEnv: 'NOM_LINK_ENDPOINT',
     returnOriginsEnv: 'NOM_RETURN_ORIGINS',
     restoreTokenParam: 'nomRestoreToken'
+  },
+  stubb: {
+    name: 'Stubb',
+    endpointEnv: 'STUBB_LINK_ENDPOINT',
+    returnOriginsEnv: 'STUBB_RETURN_ORIGINS',
+    restoreTokenParam: 'stubbRestoreToken'
   }
 };
 

@@ -312,7 +312,7 @@
 
   function displayGameName(game) {
     const value = String(game || '').trim();
-    return ({ pips: 'Pips', tadoo: 'Tadoo', nom: 'Nom' }[value.toLowerCase()] || state.gameName || value);
+    return ({ pips: 'Pips', tadoo: 'Tadoo', nom: 'Nom', stubb: 'Stubb' }[value.toLowerCase()] || state.gameName || value);
   }
 
   function escapeHtml(value) {
