@@ -14,6 +14,11 @@
       "name": "Nom",
       "endpointEnv": "NOM_LINK_ENDPOINT",
       "returnOriginsEnv": "NOM_RETURN_ORIGINS"
+    },
+    "splob": {
+      "name": "Splob",
+      "endpointEnv": "SPLOB_LINK_ENDPOINT",
+      "returnOriginsEnv": "SPLOB_RETURN_ORIGINS"
     }
   }
 }

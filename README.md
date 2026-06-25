@@ -18,7 +18,7 @@ The original file included baked-in Wholegrain Games wordmark images. Those have
 
 ## Wholegrain account linking
 
-Wholegrain Studios is the central account service. Pips, Tadoo, and Nom redirect players to `/accounts/link` with `game`, `gameAccountId`, and `returnTo` query parameters. Wholegrain handles login, then calls the app server-to-server through `/.netlify/functions/link-game-account`.
+Wholegrain Studios is the central account service. Pips, Tadoo, Nom, and Splob redirect players to `/accounts/link` with `game`, `gameAccountId`, and `returnTo` query parameters. Wholegrain handles login, then calls the app server-to-server through `/.netlify/functions/link-game-account`.
 
 ### Required Wholegrain Studios Netlify settings
 
@@ -35,6 +35,8 @@ Set these environment variables on the Wholegrain Studios Netlify site:
 - `TADOO_RETURN_ORIGINS`: comma-separated origins that the link page may redirect back to. Keep the actual values only in Netlify if the variable is marked secret.
 - `NOM_LINK_ENDPOINT`: the protected Nom backend endpoint. Keep the actual value only in Netlify, not in committed docs or client-side code.
 - `NOM_RETURN_ORIGINS`: comma-separated origins that the link page may redirect back to. Keep the actual values only in Netlify if the variable is marked secret.
+- `SPLOB_LINK_ENDPOINT`: the protected Splob backend endpoint. Keep the actual value only in Netlify, not in committed docs or client-side code.
+- `SPLOB_RETURN_ORIGINS`: comma-separated origins that the link page may redirect back to. Keep the actual values only in Netlify if the variable is marked secret.
 
 ### Required Pips Netlify settings
 
@@ -57,6 +59,13 @@ Set these environment variables on the Nom Netlify site:
 - `VITE_WHOLEGRAIN_ACCOUNTS_URL`: the production Wholegrain account-link page URL.
 - `WHOLEGRAIN_LINK_SECRET`: the same long random shared secret used on Wholegrain Studios.
 - `NETLIFY_DB_URL` or `DATABASE_URL`: the Netlify database connection string used by `/.netlify/functions/nom-profile`.
+
+### Required Splob Netlify settings
+
+Set these environment variables on the Splob Netlify site:
+
+- `VITE_WHOLEGRAIN_ACCOUNTS_URL`: the production Wholegrain account-link page URL.
+- `WHOLEGRAIN_LINK_SECRET`: the same long random shared secret used on Wholegrain Studios.
 
 ### Linked app backend contract
 

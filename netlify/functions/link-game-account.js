@@ -17,6 +17,12 @@ const ACTIVE_GAME_LINKS = {
     returnOriginsEnv: 'NOM_RETURN_ORIGINS',
     restoreTokenParam: 'nomRestoreToken'
   },
+  splob: {
+    name: 'Splob',
+    endpointEnv: 'SPLOB_LINK_ENDPOINT',
+    returnOriginsEnv: 'SPLOB_RETURN_ORIGINS',
+    restoreTokenParam: 'splobRestoreToken'
+  },
   stubb: {
     name: 'Stubb',
     endpointEnv: 'STUBB_LINK_ENDPOINT',
