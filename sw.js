@@ -1,4 +1,4 @@
-const CACHE_NAME = 'wholegrain-studios-v10';
+const CACHE_NAME = 'wholegrain-studios-v11';
 const APP_SHELL = [
   './',
   './index.html',
@@ -24,8 +24,10 @@ const APP_SHELL = [
   './images/hero-wordmark.png',
   './images/cover-pips.png',
   './images/cover-kaboo.png',
+  './images/cover-splob.png',
   './images/cover-lumi.png',
-  './images/cover-tadoo.png'
+  './images/cover-tadoo.png',
+  './images/cover-nom.png'
 ];
 
 self.addEventListener('install', event => {
